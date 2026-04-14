@@ -1,0 +1,1 @@
+Nous utilisons une architecture modulaire dans le dossier /Modules. Chaque module a ses propres Entities, Routes et Controllers. Utilise l'injection de dépendances et les Service Classes.
