@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Core\Enums\UserRole;
+use Modules\Shop\Entities\Shop;
 
 #[Fillable(['name', 'email', 'password', 'role', 'admin_level', 'is_active'])]
 #[Hidden(['password', 'remember_token'])]
@@ -46,5 +47,13 @@ class User extends Authenticatable
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
+    }
+
+    /**
+     * @return HasOne<Shop, $this>
+     */
+    public function shop(): HasOne
+    {
+        return $this->hasOne(Shop::class);
     }
 }

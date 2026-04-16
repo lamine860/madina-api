@@ -26,7 +26,7 @@
             </style>
 
     <script>
-        var tryItOutBaseUrl = "madina-api.test";
+        var tryItOutBaseUrl = "localhost:8000";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
@@ -105,6 +105,22 @@
                                                                     </ul>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-endpoints" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="endpoints">
+                    <a href="#endpoints">Endpoints</a>
+                </li>
+                                    <ul id="tocify-subheader-endpoints" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-v1-shops--slug-">
+                                <a href="#endpoints-GETapi-v1-shops--slug-">GET api/v1/shops/{slug}</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-v1-shops">
+                                <a href="#endpoints-POSTapi-v1-shops">POST api/v1/shops</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-PUTapi-v1-shops--id-">
+                                <a href="#endpoints-PUTapi-v1-shops--id-">PUT api/v1/shops/{id}</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
             </div>
 
     <ul class="toc-footer" id="toc-footer">
@@ -123,7 +139,7 @@
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <aside>
-    <strong>Base URL</strong>: <code>madina-api.test</code>
+    <strong>Base URL</strong>: <code>localhost:8000</code>
 </aside>
 <pre><code>This documentation aims to provide all the information you need to work with our API.
 
@@ -151,7 +167,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "madina-api.test/api/v1/auth/register" \
+    "localhost:8000/api/v1/auth/register" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -167,7 +183,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "madina-api.test/api/v1/auth/register"
+    "localhost:8000/api/v1/auth/register"
 );
 
 const headers = {
@@ -354,7 +370,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "madina-api.test/api/v1/auth/login" \
+    "localhost:8000/api/v1/auth/login" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -366,7 +382,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "madina-api.test/api/v1/auth/login"
+    "localhost:8000/api/v1/auth/login"
 );
 
 const headers = {
@@ -502,14 +518,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "madina-api.test/api/v1/auth/logout" \
+    "localhost:8000/api/v1/auth/logout" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "madina-api.test/api/v1/auth/logout"
+    "localhost:8000/api/v1/auth/logout"
 );
 
 const headers = {
@@ -615,14 +631,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "madina-api.test/api/v1/auth/me" \
+    --get "localhost:8000/api/v1/auth/me" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "madina-api.test/api/v1/auth/me"
+    "localhost:8000/api/v1/auth/me"
 );
 
 const headers = {
@@ -640,7 +656,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-auth-me">
             <blockquote>
-            <p>Example response (404):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -648,10 +664,11 @@ fetch(url, {
             </summary>
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
+access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;The route madina-api.test/api/v1/auth/me could not be found.&quot;
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
 }</code>
  </pre>
     </span>
@@ -727,6 +744,559 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>application/json</code></p>
             </div>
                         </form>
+
+                <h1 id="endpoints">Endpoints</h1>
+
+    
+
+                                <h2 id="endpoints-GETapi-v1-shops--slug-">GET api/v1/shops/{slug}</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-v1-shops--slug-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "localhost:8000/api/v1/shops/architecto" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "localhost:8000/api/v1/shops/architecto"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-shops--slug-">
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;No query results for model [Modules\\Shop\\Entities\\Shop] architecto&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-shops--slug-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-shops--slug-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-shops--slug-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-shops--slug-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-shops--slug-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-shops--slug-" data-method="GET"
+      data-path="api/v1/shops/{slug}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-shops--slug-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-shops--slug-"
+                    onclick="tryItOut('GETapi-v1-shops--slug-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-shops--slug-"
+                    onclick="cancelTryOut('GETapi-v1-shops--slug-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-shops--slug-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/shops/{slug}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-shops--slug-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-shops--slug-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>slug</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="slug"                data-endpoint="GETapi-v1-shops--slug-"
+               value="architecto"
+               data-component="url">
+    <br>
+<p>The slug of the shop. Example: <code>architecto</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="endpoints-POSTapi-v1-shops">POST api/v1/shops</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-v1-shops">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "localhost:8000/api/v1/shops" \
+    --header "Content-Type: multipart/form-data" \
+    --header "Accept: application/json" \
+    --form "name=Madina Tech Store"\
+    --form "slug=b"\
+    --form "description=Vente de matériel informatique et accessoires."\
+    --form "company_name=Madina SARL"\
+    --form "vat_number=RC-CON-2024-B-1234"\
+    --form "logo=@/tmp/phptrl4oopoj2orfEKoiDo" </code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "localhost:8000/api/v1/shops"
+);
+
+const headers = {
+    "Content-Type": "multipart/form-data",
+    "Accept": "application/json",
+};
+
+const body = new FormData();
+body.append('name', 'Madina Tech Store');
+body.append('slug', 'b');
+body.append('description', 'Vente de matériel informatique et accessoires.');
+body.append('company_name', 'Madina SARL');
+body.append('vat_number', 'RC-CON-2024-B-1234');
+body.append('logo', document.querySelector('input[name="logo"]').files[0]);
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-shops">
+</span>
+<span id="execution-results-POSTapi-v1-shops" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-shops"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-shops"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-shops" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-shops">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-shops" data-method="POST"
+      data-path="api/v1/shops"
+      data-authed="0"
+      data-hasfiles="1"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-shops', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-shops"
+                    onclick="tryItOut('POSTapi-v1-shops');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-shops"
+                    onclick="cancelTryOut('POSTapi-v1-shops');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-shops"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/shops</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-shops"
+               value="multipart/form-data"
+               data-component="header">
+    <br>
+<p>Example: <code>multipart/form-data</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-shops"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTapi-v1-shops"
+               value="Madina Tech Store"
+               data-component="body">
+    <br>
+<p>Le nom public de la boutique. Must not be greater than 255 characters. Example: <code>Madina Tech Store</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>slug</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="slug"                data-endpoint="POSTapi-v1-shops"
+               value="b"
+               data-component="body">
+    <br>
+<p>Must not be greater than 255 characters. Example: <code>b</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="POSTapi-v1-shops"
+               value="Vente de matériel informatique et accessoires."
+               data-component="body">
+    <br>
+<p>Une brève description de ce que propose la boutique. Example: <code>Vente de matériel informatique et accessoires.</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>company_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="company_name"                data-endpoint="POSTapi-v1-shops"
+               value="Madina SARL"
+               data-component="body">
+    <br>
+<p>Le nom légal de l'entreprise. Must not be greater than 255 characters. Example: <code>Madina SARL</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>vat_number</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="vat_number"                data-endpoint="POSTapi-v1-shops"
+               value="RC-CON-2024-B-1234"
+               data-component="body">
+    <br>
+<p>Le numéro NINEA ou Registre du commerce. Must not be greater than 50 characters. Example: <code>RC-CON-2024-B-1234</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>logo</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="file" style="display: none"
+                              name="logo"                data-endpoint="POSTapi-v1-shops"
+               value=""
+               data-component="body">
+    <br>
+<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phptrl4oopoj2orfEKoiDo</code></p>
+        </div>
+        </form>
+
+                    <h2 id="endpoints-PUTapi-v1-shops--id-">PUT api/v1/shops/{id}</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-PUTapi-v1-shops--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "localhost:8000/api/v1/shops/16" \
+    --header "Content-Type: multipart/form-data" \
+    --header "Accept: application/json" \
+    --form "name=Madina Tech Store"\
+    --form "slug=b"\
+    --form "description=Vente de matériel informatique et accessoires."\
+    --form "company_name=Madina SARL"\
+    --form "vat_number=RC-CON-2024-B-1234"\
+    --form "logo=@/tmp/phpka4g5qdh7kp8fkaeHKo" </code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "localhost:8000/api/v1/shops/16"
+);
+
+const headers = {
+    "Content-Type": "multipart/form-data",
+    "Accept": "application/json",
+};
+
+const body = new FormData();
+body.append('name', 'Madina Tech Store');
+body.append('slug', 'b');
+body.append('description', 'Vente de matériel informatique et accessoires.');
+body.append('company_name', 'Madina SARL');
+body.append('vat_number', 'RC-CON-2024-B-1234');
+body.append('logo', document.querySelector('input[name="logo"]').files[0]);
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-v1-shops--id-">
+</span>
+<span id="execution-results-PUTapi-v1-shops--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-v1-shops--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-v1-shops--id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-v1-shops--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-v1-shops--id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-v1-shops--id-" data-method="PUT"
+      data-path="api/v1/shops/{id}"
+      data-authed="0"
+      data-hasfiles="1"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-v1-shops--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-v1-shops--id-"
+                    onclick="tryItOut('PUTapi-v1-shops--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-v1-shops--id-"
+                    onclick="cancelTryOut('PUTapi-v1-shops--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-v1-shops--id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/v1/shops/{id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-v1-shops--id-"
+               value="multipart/form-data"
+               data-component="header">
+    <br>
+<p>Example: <code>multipart/form-data</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-v1-shops--id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="id"                data-endpoint="PUTapi-v1-shops--id-"
+               value="16"
+               data-component="url">
+    <br>
+<p>The ID of the shop. Example: <code>16</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="PUTapi-v1-shops--id-"
+               value="Madina Tech Store"
+               data-component="body">
+    <br>
+<p>Le nom public de la boutique. Must not be greater than 255 characters. Example: <code>Madina Tech Store</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>slug</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="slug"                data-endpoint="PUTapi-v1-shops--id-"
+               value="b"
+               data-component="body">
+    <br>
+<p>Must not be greater than 255 characters. Example: <code>b</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="PUTapi-v1-shops--id-"
+               value="Vente de matériel informatique et accessoires."
+               data-component="body">
+    <br>
+<p>Une brève description de ce que propose la boutique. Example: <code>Vente de matériel informatique et accessoires.</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>company_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="company_name"                data-endpoint="PUTapi-v1-shops--id-"
+               value="Madina SARL"
+               data-component="body">
+    <br>
+<p>Le nom légal de l'entreprise. Must not be greater than 255 characters. Example: <code>Madina SARL</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>vat_number</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="vat_number"                data-endpoint="PUTapi-v1-shops--id-"
+               value="RC-CON-2024-B-1234"
+               data-component="body">
+    <br>
+<p>Le numéro NINEA ou Registre du commerce. Must not be greater than 50 characters. Example: <code>RC-CON-2024-B-1234</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>logo</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="file" style="display: none"
+                              name="logo"                data-endpoint="PUTapi-v1-shops--id-"
+               value=""
+               data-component="body">
+    <br>
+<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpka4g5qdh7kp8fkaeHKo</code></p>
+        </div>
+        </form>
 
             
 
