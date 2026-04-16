@@ -26,7 +26,7 @@
             </style>
 
     <script>
-        var tryItOutBaseUrl = "http://localhost:8000";
+        var tryItOutBaseUrl = "madina-api.test";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
@@ -66,23 +66,43 @@
                     <a href="#authenticating-requests">Authenticating requests</a>
                 </li>
                             </ul>
-                    <ul id="tocify-header-endpoints" class="tocify-header">
-                <li class="tocify-item level-1" data-unique="endpoints">
-                    <a href="#endpoints">Endpoints</a>
+                    <ul id="tocify-header-authentification" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="authentification">
+                    <a href="#authentification">Authentification</a>
                 </li>
-                                    <ul id="tocify-subheader-endpoints" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="endpoints-POSTapi-v1-auth-register">
-                                <a href="#endpoints-POSTapi-v1-auth-register">POST api/v1/auth/register</a>
+                                    <ul id="tocify-subheader-authentification" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="authentification-inscription">
+                                <a href="#authentification-inscription">Inscription</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-v1-auth-login">
-                                <a href="#endpoints-POSTapi-v1-auth-login">POST api/v1/auth/login</a>
+                                                            <ul id="tocify-subheader-authentification-inscription" class="tocify-subheader">
+                                                                            <li class="tocify-item level-3" data-unique="authentification-POSTapi-v1-auth-register">
+                                            <a href="#authentification-POSTapi-v1-auth-register">Crée un compte client (utilisateur + profil `Customer`) et retourne un jeton Bearer Sanctum.</a>
+                                        </li>
+                                                                    </ul>
+                                                                                <li class="tocify-item level-2" data-unique="authentification-connexion">
+                                <a href="#authentification-connexion">Connexion</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-v1-auth-logout">
-                                <a href="#endpoints-POSTapi-v1-auth-logout">POST api/v1/auth/logout</a>
+                                                            <ul id="tocify-subheader-authentification-connexion" class="tocify-subheader">
+                                                                            <li class="tocify-item level-3" data-unique="authentification-POSTapi-v1-auth-login">
+                                            <a href="#authentification-POSTapi-v1-auth-login">Authentifie un utilisateur actif et retourne un jeton Bearer Sanctum.</a>
+                                        </li>
+                                                                    </ul>
+                                                                                <li class="tocify-item level-2" data-unique="authentification-session">
+                                <a href="#authentification-session">Session</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-v1-auth-me">
-                                <a href="#endpoints-GETapi-v1-auth-me">GET api/v1/auth/me</a>
+                                                            <ul id="tocify-subheader-authentification-session" class="tocify-subheader">
+                                                                            <li class="tocify-item level-3" data-unique="authentification-POSTapi-v1-auth-logout">
+                                            <a href="#authentification-POSTapi-v1-auth-logout">Révoque le jeton d’accès API courant (celui utilisé dans l’en-tête `Authorization: Bearer`).</a>
+                                        </li>
+                                                                    </ul>
+                                                                                <li class="tocify-item level-2" data-unique="authentification-profil">
+                                <a href="#authentification-profil">Profil</a>
                             </li>
+                                                            <ul id="tocify-subheader-authentification-profil" class="tocify-subheader">
+                                                                            <li class="tocify-item level-3" data-unique="authentification-GETapi-v1-auth-me">
+                                            <a href="#authentification-GETapi-v1-auth-me">Retourne l’utilisateur authentifié avec le profil client et les adresses chargés.</a>
+                                        </li>
+                                                                    </ul>
                                                                         </ul>
                             </ul>
             </div>
@@ -94,7 +114,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: April 15, 2026</li>
+        <li>Last updated: April 16, 2026</li>
     </ul>
 </div>
 
@@ -103,7 +123,7 @@
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <aside>
-    <strong>Base URL</strong>: <code>http://localhost:8000</code>
+    <strong>Base URL</strong>: <code>madina-api.test</code>
 </aside>
 <pre><code>This documentation aims to provide all the information you need to work with our API.
 
@@ -113,11 +133,12 @@ You can switch the language used with the tabs at the top right (or from the nav
         <h1 id="authenticating-requests">Authenticating requests</h1>
 <p>This API is not authenticated.</p>
 
-        <h1 id="endpoints">Endpoints</h1>
+        <h1 id="authentification">Authentification</h1>
 
     
 
-                                <h2 id="endpoints-POSTapi-v1-auth-register">POST api/v1/auth/register</h2>
+                        <h2 id="authentification-inscription">Inscription</h2>
+                                                    <h2 id="authentification-POSTapi-v1-auth-register">Crée un compte client (utilisateur + profil `Customer`) et retourne un jeton Bearer Sanctum.</h2>
 
 <p>
 </p>
@@ -130,22 +151,23 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost:8000/api/v1/auth/register" \
+    "madina-api.test/api/v1/auth/register" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"gbailey@example.net\",
+    \"email\": \"client@example.com\",
     \"password\": \"|]|{+-\",
-    \"first_name\": \"v\",
-    \"last_name\": \"d\",
-    \"phone\": \"l\"
+    \"password_confirmation\": \"architecto\",
+    \"first_name\": \"Amina\",
+    \"last_name\": \"Diallo\",
+    \"phone\": \"+221771234567\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/auth/register"
+    "madina-api.test/api/v1/auth/register"
 );
 
 const headers = {
@@ -154,11 +176,12 @@ const headers = {
 };
 
 let body = {
-    "email": "gbailey@example.net",
+    "email": "client@example.com",
     "password": "|]|{+-",
-    "first_name": "v",
-    "last_name": "d",
-    "phone": "l"
+    "password_confirmation": "architecto",
+    "first_name": "Amina",
+    "last_name": "Diallo",
+    "phone": "+221771234567"
 };
 
 fetch(url, {
@@ -250,10 +273,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-v1-auth-register"
-               value="gbailey@example.net"
+               value="client@example.com"
                data-component="body">
     <br>
-<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>gbailey@example.net</code></p>
+<p>Adresse e-mail unique. Example: <code>client@example.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -265,7 +288,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="|]|{+-"
                data-component="body">
     <br>
-<p>Example: <code>|]|{+-</code></p>
+<p>Mot de passe (politique <code>Password::defaults()</code>). Example: <code>|]|{+-</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="password_confirmation"                data-endpoint="POSTapi-v1-auth-register"
+               value="architecto"
+               data-component="body">
+    <br>
+<p>Doit correspondre exactement au champ <code>password</code>. Example: <code>architecto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>first_name</code></b>&nbsp;&nbsp;
@@ -274,10 +309,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="first_name"                data-endpoint="POSTapi-v1-auth-register"
-               value="v"
+               value="Amina"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>v</code></p>
+<p>Prénom. Example: <code>Amina</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>last_name</code></b>&nbsp;&nbsp;
@@ -286,10 +321,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="last_name"                data-endpoint="POSTapi-v1-auth-register"
-               value="d"
+               value="Diallo"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>d</code></p>
+<p>Nom de famille. Example: <code>Diallo</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
@@ -298,14 +333,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="phone"                data-endpoint="POSTapi-v1-auth-register"
-               value="l"
+               value="+221771234567"
                data-component="body">
     <br>
-<p>Must not be greater than 50 characters. Example: <code>l</code></p>
+<p>Numéro de téléphone. Example: <code>+221771234567</code></p>
         </div>
         </form>
 
-                    <h2 id="endpoints-POSTapi-v1-auth-login">POST api/v1/auth/login</h2>
+                                <h2 id="authentification-connexion">Connexion</h2>
+                                                    <h2 id="authentification-POSTapi-v1-auth-login">Authentifie un utilisateur actif et retourne un jeton Bearer Sanctum.</h2>
 
 <p>
 </p>
@@ -318,19 +354,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost:8000/api/v1/auth/login" \
+    "madina-api.test/api/v1/auth/login" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"gbailey@example.net\",
-    \"password\": \"|]|{+-\"
+    \"email\": \"client@example.com\",
+    \"password\": \"Str0ng!Pass\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/auth/login"
+    "madina-api.test/api/v1/auth/login"
 );
 
 const headers = {
@@ -339,8 +375,8 @@ const headers = {
 };
 
 let body = {
-    "email": "gbailey@example.net",
-    "password": "|]|{+-"
+    "email": "client@example.com",
+    "password": "Str0ng!Pass"
 };
 
 fetch(url, {
@@ -432,10 +468,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-v1-auth-login"
-               value="gbailey@example.net"
+               value="client@example.com"
                data-component="body">
     <br>
-<p>Must be a valid email address. Example: <code>gbailey@example.net</code></p>
+<p>Adresse e-mail du compte. Example: <code>client@example.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -444,16 +480,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-v1-auth-login"
-               value="|]|{+-"
+               value="Str0ng!Pass"
                data-component="body">
     <br>
-<p>Example: <code>|]|{+-</code></p>
+<p>Mot de passe. Example: <code>Str0ng!Pass</code></p>
         </div>
         </form>
 
-                    <h2 id="endpoints-POSTapi-v1-auth-logout">POST api/v1/auth/logout</h2>
+                                <h2 id="authentification-session">Session</h2>
+                                                    <h2 id="authentification-POSTapi-v1-auth-logout">Révoque le jeton d’accès API courant (celui utilisé dans l’en-tête `Authorization: Bearer`).</h2>
 
 <p>
+<small class="badge badge-darkred">requires authentication</small>
 </p>
 
 
@@ -464,14 +502,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost:8000/api/v1/auth/logout" \
+    "madina-api.test/api/v1/auth/logout" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/auth/logout"
+    "madina-api.test/api/v1/auth/logout"
 );
 
 const headers = {
@@ -506,7 +544,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-POSTapi-v1-auth-logout" data-method="POST"
       data-path="api/v1/auth/logout"
-      data-authed="0"
+      data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -562,9 +600,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
-                    <h2 id="endpoints-GETapi-v1-auth-me">GET api/v1/auth/me</h2>
+                                <h2 id="authentification-profil">Profil</h2>
+                                                    <h2 id="authentification-GETapi-v1-auth-me">Retourne l’utilisateur authentifié avec le profil client et les adresses chargés.</h2>
 
 <p>
+<small class="badge badge-darkred">requires authentication</small>
 </p>
 
 
@@ -575,14 +615,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/v1/auth/me" \
+    --get "madina-api.test/api/v1/auth/me" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/auth/me"
+    "madina-api.test/api/v1/auth/me"
 );
 
 const headers = {
@@ -600,7 +640,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-auth-me">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (404):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -608,11 +648,10 @@ fetch(url, {
             </summary>
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
-access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
+    &quot;message&quot;: &quot;The route madina-api.test/api/v1/auth/me could not be found.&quot;
 }</code>
  </pre>
     </span>
@@ -633,7 +672,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-GETapi-v1-auth-me" data-method="GET"
       data-path="api/v1/auth/me"
-      data-authed="0"
+      data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
