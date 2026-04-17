@@ -21,6 +21,13 @@ final class ShopController extends Controller
         private readonly ShopService $shopService,
     ) {}
 
+    /**
+     * @param  CreateShopRequest  $request
+     * @return JsonResponse
+     * @group Boutique
+     * @subgroup Création
+     * @authenticated
+     */
     public function store(CreateShopRequest $request): JsonResponse
     {
         $this->authorize('create', Shop::class);
@@ -40,7 +47,14 @@ final class ShopController extends Controller
     }
 
 
-
+    /**
+     * @param  UpdateShopRequest  $request
+     * @param  Shop  $shop
+     * @return JsonResponse
+     * @group Boutique
+     * @subgroup Mise à jour
+     * @authenticated
+     */
     public function update(UpdateShopRequest $request, Shop $shop): JsonResponse
     {
         $this->authorize('update', $shop);

@@ -49,10 +49,6 @@ final class UpdateShopRequest extends FormRequest
      */
     public function rules(): array
     {
-        /** @var Shop $shop */
-        $shop = $this->route('shop');
-        $shopId = $shop?->id;
-
         return [
             'name' => ['sometimes', 'required', 'string', 'max:255'],
             'slug' => [
@@ -60,7 +56,7 @@ final class UpdateShopRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('shops', 'slug')->ignore($shopId),
+                Rule::unique('shops', 'slug')->ignore($this->route('shop')?->id),
             ],
             'description' => ['nullable', 'string'],
             'company_name' => ['nullable', 'string', 'max:255'],

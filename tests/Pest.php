@@ -22,6 +22,10 @@ pest()->extend(TestCase::class)
     ->use(RefreshDatabase::class)
     ->in('../Modules/Core/tests/Feature');
 
+pest()->extend(TestCase::class)
+    ->use(RefreshDatabase::class)
+    ->in('../Modules/Shop/tests/Feature');
+
 /*
 |--------------------------------------------------------------------------
 | Expectations

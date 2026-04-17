@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Modules\Shop\Entities;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
 use Modules\Core\Entities\User;
+use Modules\Shop\Database\Factories\ShopFactory;
 
 #[Fillable([
     'user_id',
@@ -22,6 +24,14 @@ use Modules\Core\Entities\User;
 ])]
 class Shop extends Model
 {
+    /** @use HasFactory<ShopFactory> */
+    use HasFactory;
+
+    protected static function newFactory(): ShopFactory
+    {
+        return ShopFactory::new();
+    }
+
     /**
      * @return array<string, string>
      */
