@@ -13,7 +13,8 @@
         "laravel/framework": "^13.0",
         "laravel/sanctum": "*",
         "laravel/tinker": "^3.0",
-        "nwidart/laravel-modules": "*"
+        "nwidart/laravel-modules": "*",
+        "spatie/laravel-medialibrary": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -36,13 +37,17 @@
             "Modules\\Core\\Database\\Seeders\\": "Modules/Core/database/seeders/",
             "Modules\\Shop\\": "Modules/Shop/app/",
             "Modules\\Shop\\Database\\Factories\\": "Modules/Shop/database/factories/",
-            "Modules\\Shop\\Database\\Seeders\\": "Modules/Shop/database/seeders/"
+            "Modules\\Shop\\Database\\Seeders\\": "Modules/Shop/database/seeders/",
+            "Modules\\Catalog\\": "Modules/Catalog/app/",
+            "Modules\\Catalog\\Database\\Factories\\": "Modules/Catalog/database/factories/",
+            "Modules\\Catalog\\Database\\Seeders\\": "Modules/Catalog/database/seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "Modules\\Core\\Tests\\": "Modules/Core/tests/"
+            "Modules\\Core\\Tests\\": "Modules/Core/tests/",
+            "Modules\\Catalog\\Tests\\": "Modules/Catalog/tests/"
         }
     },
     "scripts": {

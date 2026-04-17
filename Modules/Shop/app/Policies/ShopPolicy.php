@@ -24,4 +24,12 @@ final class ShopPolicy
     {
         return $shop->user_id === $user->id;
     }
+
+    /**
+     * Gestion du catalogue produits (création / édition) réservée au propriétaire de la boutique.
+     */
+    public function manageProducts(User $user, Shop $shop): bool
+    {
+        return $shop->user_id === $user->id;
+    }
 }
