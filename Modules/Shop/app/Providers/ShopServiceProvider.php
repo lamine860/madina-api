@@ -6,7 +6,7 @@ namespace Modules\Shop\Providers;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Gate;
-use Modules\Shop\Entities\Shop;
+use Modules\Shop\Models\Shop;
 use Modules\Shop\Policies\ShopPolicy;
 use Modules\Shop\Services\ShopService;
 use Nwidart\Modules\Support\ModuleServiceProvider;

@@ -6,7 +6,7 @@ namespace Modules\Core\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Modules\Core\Entities\User;
+use Modules\Core\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CheckRole

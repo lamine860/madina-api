@@ -8,12 +8,12 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Catalog\Entities\Product;
 use Modules\Catalog\Http\Requests\StoreProductRequest;
 use Modules\Catalog\Http\Requests\UpdateProductRequest;
 use Modules\Catalog\Http\Resources\ProductResource;
+use Modules\Catalog\Models\Product;
 use Modules\Catalog\Services\ProductService;
-use Modules\Shop\Entities\Shop;
+use Modules\Shop\Models\Shop;
 
 final class ProductController extends Controller
 {

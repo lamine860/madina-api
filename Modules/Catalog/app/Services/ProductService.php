@@ -14,11 +14,11 @@ use Illuminate\Validation\ValidationException;
 use Intervention\Image\Encoders\WebpEncoder;
 use Intervention\Image\Exceptions\ImageDecoderException;
 use Intervention\Image\ImageManager;
-use Modules\Catalog\Entities\Product;
-use Modules\Catalog\Entities\ProductVariant;
 use Modules\Catalog\Exceptions\InsufficientStockException;
 use Modules\Catalog\Exceptions\ProductLinkedToOrdersException;
-use Modules\Shop\Entities\Shop;
+use Modules\Catalog\Models\Product;
+use Modules\Catalog\Models\ProductVariant;
+use Modules\Shop\Models\Shop;
 use Throwable;
 
 final class ProductService

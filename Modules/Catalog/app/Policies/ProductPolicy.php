@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\Catalog\Policies;
 
-use Modules\Catalog\Entities\Product;
-use Modules\Core\Entities\User;
+use Modules\Catalog\Models\Product;
 use Modules\Core\Enums\UserRole;
+use Modules\Core\Models\User;
 
 final class ProductPolicy
 {

@@ -7,7 +7,7 @@ namespace Modules\Catalog\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
-use Modules\Catalog\Entities\Product;
+use Modules\Catalog\Models\Product;
 
 final class UpdateProductGalleryRequest extends FormRequest
 {

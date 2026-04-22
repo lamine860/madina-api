@@ -7,14 +7,14 @@ namespace Modules\Catalog\Http\Controllers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Modules\Catalog\Entities\Product;
-use Modules\Catalog\Entities\ProductImage;
 use Modules\Catalog\Http\Requests\StoreProductImagesRequest;
 use Modules\Catalog\Http\Requests\UpdateProductGalleryRequest;
 use Modules\Catalog\Http\Resources\ProductResource;
+use Modules\Catalog\Models\Product;
+use Modules\Catalog\Models\ProductImage;
 use Modules\Catalog\Services\ProductImageService;
 use Modules\Catalog\Services\ProductService;
-use Modules\Shop\Entities\Shop;
+use Modules\Shop\Models\Shop;
 
 final class ProductImageController extends Controller
 {

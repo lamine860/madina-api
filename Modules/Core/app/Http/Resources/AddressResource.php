@@ -6,7 +6,7 @@ namespace Modules\Core\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Modules\Core\Entities\Address;
+use Modules\Core\Models\Address;
 
 /**
  * @mixin Address

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Modules\Core\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Modules\Core\Entities\Customer;
-use Modules\Core\Entities\User;
+use Modules\Core\Models\Customer;
+use Modules\Core\Models\User;
 
 /**
  * @extends Factory<Customer>

@@ -7,8 +7,8 @@ namespace Modules\Shop\Services;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Modules\Core\Entities\User;
-use Modules\Shop\Entities\Shop;
+use Modules\Core\Models\User;
+use Modules\Shop\Models\Shop;
 use Throwable;
 
 final class ShopService

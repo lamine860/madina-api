@@ -6,7 +6,7 @@ namespace Modules\Shop\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Modules\Shop\Entities\Shop;
+use Modules\Shop\Models\Shop;
 
 /**
  * @mixin Shop

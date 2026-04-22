@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Shop\Entities;
+namespace Modules\Shop\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
-use Modules\Catalog\Entities\Product;
-use Modules\Core\Entities\User;
+use Modules\Catalog\Models\Product;
+use Modules\Core\Models\User;
 use Modules\Shop\Database\Factories\ShopFactory;
 
 #[Fillable([

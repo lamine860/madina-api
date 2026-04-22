@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Shop\Policies;
 
-use Modules\Core\Entities\User;
-use Modules\Shop\Entities\Shop;
+use Modules\Core\Models\User;
+use Modules\Shop\Models\Shop;
 
 final class ShopPolicy
 {

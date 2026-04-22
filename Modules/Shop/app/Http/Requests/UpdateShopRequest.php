@@ -6,7 +6,6 @@ namespace Modules\Shop\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Modules\Shop\Entities\Shop;
 
 final class UpdateShopRequest extends FormRequest
 {
@@ -17,6 +16,7 @@ final class UpdateShopRequest extends FormRequest
 
     /**
      * Métadonnées Scribe pour les paramètres du corps (descriptions / exemples).
+     *
      * @return array<string, array{description?: string, example?: string}>
      */
     public function bodyParameters(): array

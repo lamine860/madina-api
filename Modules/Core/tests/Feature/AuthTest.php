@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Hash;
-use Modules\Core\Entities\Customer;
-use Modules\Core\Entities\User;
+use Modules\Core\Models\Customer;
+use Modules\Core\Models\User;
 
 const REGISTER_URI = '/api/v1/auth/register';
 

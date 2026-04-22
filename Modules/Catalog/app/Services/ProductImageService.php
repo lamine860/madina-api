@@ -6,8 +6,8 @@ namespace Modules\Catalog\Services;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
-use Modules\Catalog\Entities\Product;
-use Modules\Catalog\Entities\ProductImage;
+use Modules\Catalog\Models\Product;
+use Modules\Catalog\Models\ProductImage;
 use Throwable;
 
 final class ProductImageService

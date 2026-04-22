@@ -5,8 +5,8 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Modules\Core\Entities\User;
 use Modules\Core\Enums\UserRole;
+use Modules\Core\Models\User;
 
 /**
  * @extends Factory<User>

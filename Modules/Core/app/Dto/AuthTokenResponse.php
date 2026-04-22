@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Core\Dto;
 
-use Modules\Core\Entities\User;
+use Modules\Core\Models\User;
 
 final readonly class AuthTokenResponse
 {

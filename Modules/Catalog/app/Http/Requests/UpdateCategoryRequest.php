@@ -7,7 +7,7 @@ namespace Modules\Catalog\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
-use Modules\Catalog\Entities\Category;
+use Modules\Catalog\Models\Category;
 use Modules\Catalog\Services\CategoryService;
 
 final class UpdateCategoryRequest extends FormRequest

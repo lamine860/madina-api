@@ -8,8 +8,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
 use JsonException;
-use Modules\Catalog\Entities\Product;
-use Modules\Catalog\Entities\ProductVariant;
+use Modules\Catalog\Models\Product;
+use Modules\Catalog\Models\ProductVariant;
 
 final class UpdateProductRequest extends FormRequest
 {

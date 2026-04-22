@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Modules\Core\Entities\User;
-use Modules\Shop\Entities\Shop;
+use Modules\Core\Models\User;
+use Modules\Shop\Models\Shop;
 
 const SHOPS_BASE_URI = '/api/v1/shops';
 

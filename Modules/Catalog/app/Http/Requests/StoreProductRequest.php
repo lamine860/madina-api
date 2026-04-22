@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use JsonException;
-use Modules\Shop\Entities\Shop;
+use Modules\Shop\Models\Shop;
 
 final class StoreProductRequest extends FormRequest
 {

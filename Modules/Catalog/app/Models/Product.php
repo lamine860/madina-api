@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Modules\Catalog\Entities;
+namespace Modules\Catalog\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Shop\Entities\Shop;
+use Modules\Shop\Models\Shop;
 
 #[Fillable([
     'shop_id',

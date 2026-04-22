@@ -6,7 +6,7 @@ namespace Modules\Catalog\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Modules\Catalog\Entities\ProductVariant;
+use Modules\Catalog\Models\ProductVariant;
 
 /**
  * @mixin ProductVariant

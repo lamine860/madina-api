@@ -7,10 +7,10 @@ namespace Modules\Shop\Http\Controllers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Modules\Shop\Entities\Shop;
 use Modules\Shop\Http\Requests\CreateShopRequest;
 use Modules\Shop\Http\Requests\UpdateShopRequest;
 use Modules\Shop\Http\Resources\ShopResource;
+use Modules\Shop\Models\Shop;
 use Modules\Shop\Services\ShopService;
 
 final class ShopController extends Controller
@@ -22,10 +22,10 @@ final class ShopController extends Controller
     ) {}
 
     /**
-     * @param  CreateShopRequest  $request
-     * @return JsonResponse
      * @group Boutique
+     *
      * @subgroup Création
+     *
      * @authenticated
      */
     public function store(CreateShopRequest $request): JsonResponse
@@ -46,13 +46,11 @@ final class ShopController extends Controller
         ], 201);
     }
 
-
     /**
-     * @param  UpdateShopRequest  $request
-     * @param  Shop  $shop
-     * @return JsonResponse
      * @group Boutique
+     *
      * @subgroup Mise à jour
+     *
      * @authenticated
      */
     public function update(UpdateShopRequest $request, Shop $shop): JsonResponse

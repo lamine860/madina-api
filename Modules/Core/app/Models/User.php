@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Core\Entities;
+namespace Modules\Core\Models;
 
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Core\Enums\UserRole;
-use Modules\Shop\Entities\Shop;
+use Modules\Shop\Models\Shop;
 
 #[Fillable(['name', 'email', 'password', 'role', 'admin_level', 'is_active'])]
 #[Hidden(['password', 'remember_token'])]

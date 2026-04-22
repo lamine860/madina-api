@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Modules\Core\Dto\AuthTokenResponse;
-use Modules\Core\Entities\User;
 use Modules\Core\Enums\UserRole;
+use Modules\Core\Models\User;
 
 final class AuthService
 {
@@ -20,7 +20,7 @@ final class AuthService
     public function register(array $data): AuthTokenResponse
     {
         return DB::transaction(function () use ($data): AuthTokenResponse {
-            $fullName = $data['first_name'] . ' ' . $data['last_name'];
+            $fullName = $data['first_name'].' '.$data['last_name'];
 
             $user = User::query()->create([
                 'name' => $fullName,

@@ -7,10 +7,10 @@ namespace Modules\Catalog\Http\Controllers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Modules\Catalog\Entities\Category;
 use Modules\Catalog\Http\Requests\StoreCategoryRequest;
 use Modules\Catalog\Http\Requests\UpdateCategoryRequest;
 use Modules\Catalog\Http\Resources\CategoryResource;
+use Modules\Catalog\Models\Category;
 use Modules\Catalog\Services\CategoryService;
 
 final class CategoryController extends Controller

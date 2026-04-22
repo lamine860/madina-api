@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Catalog\Entities;
+namespace Modules\Catalog\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;

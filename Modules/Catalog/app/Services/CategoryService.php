@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Modules\Catalog\Entities\Category;
 use Modules\Catalog\Exceptions\CategoryNotEmptyException;
+use Modules\Catalog\Models\Category;
 use Throwable;
 
 final class CategoryService

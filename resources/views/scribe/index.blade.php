@@ -1452,7 +1452,7 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;No query results for model [Modules\\Shop\\Entities\\Shop] architecto&quot;
+    &quot;message&quot;: &quot;No query results for model [Modules\\Shop\\Models\\Shop] architecto&quot;
 }</code>
  </pre>
     </span>
@@ -1592,7 +1592,7 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;No query results for model [Modules\\Shop\\Entities\\Shop] architecto&quot;
+    &quot;message&quot;: &quot;No query results for model [Modules\\Shop\\Models\\Shop] architecto&quot;
 }</code>
  </pre>
     </span>
@@ -2422,7 +2422,7 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;No query results for model [Modules\\Shop\\Entities\\Shop] architecto&quot;
+    &quot;message&quot;: &quot;No query results for model [Modules\\Shop\\Models\\Shop] architecto&quot;
 }</code>
  </pre>
     </span>

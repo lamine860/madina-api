@@ -6,8 +6,8 @@ namespace Modules\Shop\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Modules\Core\Entities\User;
-use Modules\Shop\Entities\Shop;
+use Modules\Core\Models\User;
+use Modules\Shop\Models\Shop;
 
 /**
  * @extends Factory<Shop>

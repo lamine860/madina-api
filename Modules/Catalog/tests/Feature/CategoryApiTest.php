@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Hash;
-use Modules\Catalog\Entities\Category;
-use Modules\Catalog\Entities\Product;
-use Modules\Core\Entities\User;
-use Modules\Shop\Entities\Shop;
+use Modules\Catalog\Models\Category;
+use Modules\Catalog\Models\Product;
+use Modules\Core\Models\User;
+use Modules\Shop\Models\Shop;
 
 const CATEGORIES_API = '/api/v1/categories';
 

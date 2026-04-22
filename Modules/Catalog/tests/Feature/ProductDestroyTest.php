@@ -5,12 +5,12 @@ declare(strict_types=1);
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Modules\Catalog\Entities\Category;
-use Modules\Catalog\Entities\Product;
-use Modules\Catalog\Entities\ProductImage;
-use Modules\Catalog\Entities\ProductVariant;
-use Modules\Core\Entities\User;
-use Modules\Shop\Entities\Shop;
+use Modules\Catalog\Models\Category;
+use Modules\Catalog\Models\Product;
+use Modules\Catalog\Models\ProductImage;
+use Modules\Catalog\Models\ProductVariant;
+use Modules\Core\Models\User;
+use Modules\Shop\Models\Shop;
 
 const PRODUCTS_DESTROY_BASE = '/api/v1/shops';
 

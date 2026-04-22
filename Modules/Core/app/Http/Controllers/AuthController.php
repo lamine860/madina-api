@@ -7,10 +7,10 @@ namespace Modules\Core\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Core\Entities\User;
 use Modules\Core\Http\Requests\LoginRequest;
 use Modules\Core\Http\Requests\RegisterRequest;
 use Modules\Core\Http\Resources\UserResource;
+use Modules\Core\Models\User;
 use Modules\Core\Services\AuthService;
 
 final class AuthController extends Controller
