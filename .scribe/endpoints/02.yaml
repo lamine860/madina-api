@@ -41,10 +41,10 @@ endpoints:
     responses:
       -
         custom: []
-        status: 404
+        status: 500
         content: |-
           {
-              "message": "No query results for model [Modules\\Shop\\Entities\\Shop] architecto"
+              "message": "Server Error"
           }
         headers:
           cache-control: 'no-cache, private'

@@ -16,9 +16,9 @@ final class CreateShopRequest extends FormRequest
         return true;
     }
 
-
     /**
      * Métadonnées Scribe pour les paramètres du corps (descriptions / exemples).
+     *
      * @return array<string, array{description?: string, example?: string}>
      */
     public function bodyParameters(): array
@@ -57,7 +57,9 @@ final class CreateShopRequest extends FormRequest
                 'nullable',
                 'string',
                 'max:255',
-                Rule::unique('shops', 'slug'),
+                Rule::unique('shops', 'slug')->where(
+                    fn ($query) => $query->whereNull('shops.deleted_at'),
+                ),
             ],
             'description' => ['nullable', 'string'],
             'company_name' => ['nullable', 'string', 'max:255'],

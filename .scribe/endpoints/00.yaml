@@ -10,7 +10,10 @@ endpoints:
       custom: []
       groupName: Catalogue
       groupDescription: ''
-      subgroup: Catégories
+      subgroup: |-
+        Catégories
+
+        Liste les catégories racines avec leurs sous-catégories (arbre, profondeur limitée côté serveur).
       subgroupDescription: ''
       title: ''
       description: ''
@@ -29,8 +32,69 @@ endpoints:
     responses:
       -
         custom: []
-        status: 200
-        content: '{"categories":[]}'
+        status: 500
+        content: |-
+          {
+              "message": "Server Error"
+          }
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/categories/{slug}'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: |-
+        Catégories
+
+        Affiche une catégorie avec son fil d’Ariane (racine → … → catégorie courante) et ses enfants directs.
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      slug:
+        custom: []
+        name: slug
+        description: 'The slug of the category.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      slug: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 500
+        content: |-
+          {
+              "message": "Server Error"
+          }
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -81,10 +145,10 @@ endpoints:
     responses:
       -
         custom: []
-        status: 404
+        status: 500
         content: |-
           {
-              "message": "No query results for model [Modules\\Shop\\Entities\\Shop] architecto"
+              "message": "Server Error"
           }
         headers:
           cache-control: 'no-cache, private'
@@ -148,10 +212,10 @@ endpoints:
     responses:
       -
         custom: []
-        status: 404
+        status: 500
         content: |-
           {
-              "message": "No query results for model [Modules\\Shop\\Entities\\Shop] architecto"
+              "message": "Server Error"
           }
         headers:
           cache-control: 'no-cache, private'
@@ -160,6 +224,195 @@ endpoints:
         description: null
     responseFields: []
     auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/categories
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: Catégories
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Libellé de la catégorie. Must not be greater than 255 characters.'
+        required: true
+        example: Électronique
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      parent_id:
+        custom: []
+        name: parent_id
+        description: 'Identifiant de la catégorie parente (optionnel pour une racine). The <code>id</code> of an existing record in the categories table.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      name: Électronique
+      parent_id: 1
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/v1/categories/{slug}'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: Catégories
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      slug:
+        custom: []
+        name: slug
+        description: 'The slug of the category.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      slug: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Nouveau libellé. Must not be greater than 255 characters.'
+        required: true
+        example: 'Électronique grand public'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      slug:
+        custom: []
+        name: slug
+        description: 'Slug URL (optionnel ; sinon dérivé automatiquement du nom). Must match the regex /^[a-z0-9]+(?:-[a-z0-9]+)*$/. Must not be greater than 255 characters.'
+        required: false
+        example: electronique-grand-public
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      parent_id:
+        custom: []
+        name: parent_id
+        description: 'Nouvelle catégorie parente (null = racine). Ne peut être la catégorie elle-même ni un de ses descendants. The <code>id</code> of an existing record in the categories table.'
+        required: false
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      name: 'Électronique grand public'
+      slug: electronique-grand-public
+      parent_id: 2
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/categories/{slug}'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: Catégories
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      slug:
+        custom: []
+        name: slug
+        description: 'The slug of the category.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      slug: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
@@ -489,6 +742,18 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      gallery:
+        custom: []
+        name: gallery
+        description: 'Une image (jpeg, png, webp, gif, svg). Must be a file. Must not be greater than 5120 kilobytes.'
+        required: false
+        example:
+          - (binary)
+        type: 'file[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
       'variants[].id':
         custom: []
         name: 'variants[].id'
@@ -559,6 +824,308 @@ endpoints:
           attributes:
             size: M
             color: black
+      gallery:
+        - (binary)
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/shops/{shop_id}/products/{id}'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: Produits
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      shop_id:
+        custom: []
+        name: shop_id
+        description: 'The ID of the shop.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the product.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      shop_id: 16
+      id: architecto
+    queryParameters:
+      force:
+        custom: []
+        name: force
+        description: 'Suppression définitive (hard delete) : fichiers galerie sur disque + enregistrements. Défaut : suppression logique.'
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      force: false
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/v1/shops/{shop_id}/products/{product_id}/images'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: 'Produits — galerie'
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      shop_id:
+        custom: []
+        name: shop_id
+        description: 'The ID of the shop.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      product_id:
+        custom: []
+        name: product_id
+        description: 'The ID of the product.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      shop_id: 16
+      product_id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      gallery:
+        custom: []
+        name: gallery
+        description: 'Une image (jpeg, png, webp, gif, svg). Must be a file. Must not be greater than 5120 kilobytes.'
+        required: false
+        example:
+          - (binary)
+        type: 'file[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      gallery:
+        - (binary)
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PATCH
+    uri: 'api/v1/shops/{shop_id}/products/{product_id}/images'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: 'Produits — galerie'
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      shop_id:
+        custom: []
+        name: shop_id
+        description: 'The ID of the shop.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      product_id:
+        custom: []
+        name: product_id
+        description: 'The ID of the product.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      shop_id: 16
+      product_id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      image_ids:
+        custom: []
+        name: image_ids
+        description: ''
+        required: false
+        example:
+          - 16
+        type: 'integer[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      featured_image_id:
+        custom: []
+        name: featured_image_id
+        description: 'ID de l’image mise en avant (doit figurer dans `image_ids`). Si absent, la première entrée de `image_ids` devient la mise en avant.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      image_ids:
+        - 16
+      featured_image_id: 1
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/shops/{shop_id}/products/{product_id}/images/{product_image}'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: 'Produits — galerie'
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      shop_id:
+        custom: []
+        name: shop_id
+        description: 'The ID of the shop.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      product_id:
+        custom: []
+        name: product_id
+        description: 'The ID of the product.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      product_image:
+        custom: []
+        name: product_image
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      shop_id: 16
+      product_id: architecto
+      product_image: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
     fileParameters: []
     responses: []
     responseFields: []

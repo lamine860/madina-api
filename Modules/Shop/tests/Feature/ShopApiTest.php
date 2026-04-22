@@ -239,3 +239,129 @@ it('returns 401 when updating a shop without authentication', function () {
     ])
         ->assertUnauthorized();
 });
+
+it('allows owner to soft delete their shop', function () {
+    [$user, $token] = userWithSanctumToken();
+    $shop = Shop::factory()->create([
+        'user_id' => $user->id,
+        'slug' => 'boutique-a-supprimer',
+    ]);
+
+    $this->withToken($token)->deleteJson(SHOPS_BASE_URI.'/'.$shop->id, [], [
+        'Accept' => 'application/json',
+    ])
+        ->assertNoContent();
+
+    $this->assertSoftDeleted($shop);
+});
+
+it('removes logo from disk when owner soft deletes shop', function () {
+    Storage::fake('public');
+
+    [$user, $token] = userWithSanctumToken();
+    $path = 'shops/logos/fake-logo.png';
+    Storage::disk('public')->put($path, 'binary-fake-image');
+    $shop = Shop::factory()->create([
+        'user_id' => $user->id,
+        'logo_url' => $path,
+    ]);
+
+    $this->withToken($token)->deleteJson(SHOPS_BASE_URI.'/'.$shop->id, [], [
+        'Accept' => 'application/json',
+    ])
+        ->assertNoContent();
+
+    Storage::disk('public')->assertMissing($path);
+    $this->assertSoftDeleted($shop);
+});
+
+it('allows creating a new shop after soft deleting the previous one', function () {
+    Storage::fake('public');
+
+    [$user, $token] = userWithSanctumToken();
+    $old = Shop::factory()->create([
+        'user_id' => $user->id,
+        'name' => 'Première',
+        'slug' => 'premiere-boutique',
+    ]);
+
+    $this->withToken($token)->deleteJson(SHOPS_BASE_URI.'/'.$old->id, [], [
+        'Accept' => 'application/json',
+    ])
+        ->assertNoContent();
+
+    $this->withToken($token)->post(SHOPS_BASE_URI, [
+        'name' => 'Deuxième boutique',
+        'description' => 'Après suppression logique.',
+        'company_name' => 'SARL 2',
+        'vat_number' => 'RC-2',
+    ], [
+        'Accept' => 'application/json',
+    ])
+        ->assertCreated()
+        ->assertJsonPath('shop.name', 'Deuxième boutique')
+        ->assertJsonPath('shop.slug', 'deuxieme-boutique');
+});
+
+it('allows reusing slug after previous shop with same slug was soft deleted', function () {
+    [$user, $token] = userWithSanctumToken();
+    $first = Shop::factory()->create([
+        'user_id' => $user->id,
+        'slug' => 'slug-reutilisable',
+    ]);
+
+    $this->withToken($token)->deleteJson(SHOPS_BASE_URI.'/'.$first->id, [], [
+        'Accept' => 'application/json',
+    ])
+        ->assertNoContent();
+
+    $this->withToken($token)->postJson(SHOPS_BASE_URI, [
+        'name' => 'Nouvelle avec même slug',
+        'slug' => 'slug-reutilisable',
+        'description' => 'D',
+        'company_name' => 'C',
+        'vat_number' => 'RC-R',
+    ])
+        ->assertCreated()
+        ->assertJsonPath('shop.slug', 'slug-reutilisable');
+});
+
+it('returns 403 when another user tries to delete the shop', function () {
+    $owner = User::factory()->create();
+    $shop = Shop::factory()->create(['user_id' => $owner->id]);
+
+    [, $otherToken] = userWithSanctumToken();
+
+    $this->withToken($otherToken)->deleteJson(SHOPS_BASE_URI.'/'.$shop->id)
+        ->assertForbidden();
+});
+
+it('returns 401 when deleting a shop without authentication', function () {
+    $shop = Shop::factory()->create();
+
+    $this->deleteJson(SHOPS_BASE_URI.'/'.$shop->id)
+        ->assertUnauthorized();
+});
+
+it('returns 404 when showing a soft deleted shop by slug', function () {
+    $shop = Shop::factory()->create(['slug' => 'gone-shop']);
+    $shop->delete();
+
+    $this->getJson(SHOPS_BASE_URI.'/gone-shop', [
+        'Accept' => 'application/json',
+    ])
+        ->assertNotFound();
+});
+
+it('returns 404 when updating a soft deleted shop by id', function () {
+    [$user, $token] = userWithSanctumToken();
+    $shop = Shop::factory()->create(['user_id' => $user->id]);
+    $shopId = $shop->id;
+    $shop->delete();
+
+    $this->withToken($token)->putJson(SHOPS_BASE_URI.'/'.$shopId, [
+        'name' => 'Trop tard',
+        'slug' => 'trop-tard',
+    ])
+        ->assertNotFound();
+});

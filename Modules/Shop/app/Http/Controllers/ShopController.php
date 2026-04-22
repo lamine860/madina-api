@@ -6,6 +6,7 @@ namespace Modules\Shop\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Shop\Http\Requests\CreateShopRequest;
 use Modules\Shop\Http\Requests\UpdateShopRequest;
@@ -76,5 +77,21 @@ final class ShopController extends Controller
         return response()->json([
             'shop' => new ShopResource($shop),
         ]);
+    }
+
+    /**
+     * @group Boutique
+     *
+     * @subgroup Suppression
+     *
+     * @authenticated
+     */
+    public function destroy(Shop $shop): Response
+    {
+        $this->authorize('delete', $shop);
+
+        $this->shopService->deleteShop($shop);
+
+        return response()->noContent();
     }
 }

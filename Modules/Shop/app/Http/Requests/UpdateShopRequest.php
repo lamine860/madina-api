@@ -56,7 +56,9 @@ final class UpdateShopRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('shops', 'slug')->ignore($this->route('shop')?->id),
+                Rule::unique('shops', 'slug')
+                    ->ignore($this->route('shop')?->id)
+                    ->where(fn ($query) => $query->whereNull('shops.deleted_at')),
             ],
             'description' => ['nullable', 'string'],
             'company_name' => ['nullable', 'string', 'max:255'],

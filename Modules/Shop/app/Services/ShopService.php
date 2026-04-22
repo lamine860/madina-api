@@ -7,6 +7,7 @@ namespace Modules\Shop\Services;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Modules\Catalog\Models\Product;
 use Modules\Core\Models\User;
 use Modules\Shop\Models\Shop;
 use Throwable;
@@ -97,6 +98,24 @@ final class ShopService
             report($e);
             throw $e;
         }
+    }
+
+    /**
+     * Suppression logique de la boutique. Le fichier logo est retiré du disque public.
+     * Les {@see Product} restent liées par {@code shop_id}
+     * (pas de CASCADE SQL sur soft delete).
+     */
+    public function deleteShop(Shop $shop): void
+    {
+        $logoPath = $shop->getRawOriginal('logo_url');
+
+        DB::transaction(function () use ($shop, $logoPath): void {
+            if ($logoPath !== null && $logoPath !== '') {
+                $this->deleteStoredLogo($logoPath);
+            }
+
+            $shop->delete();
+        });
     }
 
     /**
