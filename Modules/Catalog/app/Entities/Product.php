@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Shop\Entities\Shop;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 
 #[Fillable([
     'shop_id',
@@ -21,9 +20,9 @@ use Spatie\MediaLibrary\InteractsWithMedia;
     'base_price',
     'is_active',
 ])]
-class Product extends Model implements HasMedia
+class Product extends Model
 {
-    use InteractsWithMedia;
+    use SoftDeletes;
 
     public function getRouteKeyName(): string
     {
@@ -65,9 +64,11 @@ class Product extends Model implements HasMedia
         return $this->hasMany(ProductVariant::class);
     }
 
-    public function registerMediaCollections(): void
+    /**
+     * @return HasMany<ProductImage, $this>
+     */
+    public function productImages(): HasMany
     {
-        $this->addMediaCollection('gallery')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml']);
+        return $this->hasMany(ProductImage::class)->orderBy('sort_order');
     }
 }

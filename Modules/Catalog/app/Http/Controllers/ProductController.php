@@ -33,7 +33,7 @@ final class ProductController extends Controller
         $products = Product::query()
             ->where('shop_id', $shop->id)
             ->where('is_active', true)
-            ->with(['category', 'variants'])
+            ->with(['category', 'variants', 'productImages'])
             ->latest('id')
             ->paginate(perPage: 20);
 
@@ -50,7 +50,7 @@ final class ProductController extends Controller
         abort_unless($product->shop_id === $shop->id, 404);
         abort_unless($product->is_active, 404);
 
-        $product->load(['category', 'variants', 'media']);
+        $product->load(['category', 'variants', 'productImages']);
 
         return response()->json([
             'product' => new ProductResource($product),
@@ -103,10 +103,33 @@ final class ProductController extends Controller
         $variants = $validated['variants'];
         unset($validated['variants']);
 
-        $updated = $this->productService->updateProduct($product, $validated, $variants);
+        $gallery = $request->file('gallery');
+        $galleryFiles = $gallery !== null ? (is_array($gallery) ? array_values($gallery) : [$gallery]) : null;
+
+        $updated = $this->productService->updateProduct($product, $validated, $variants, $galleryFiles);
 
         return response()->json([
             'product' => new ProductResource($updated),
         ]);
+    }
+
+    /**
+     * @group Catalogue
+     *
+     * @subgroup Produits
+     *
+     * @authenticated
+     *
+     * @queryParam force boolean Suppression définitive (hard delete) : fichiers galerie sur disque + enregistrements. Défaut : suppression logique. Example: false
+     */
+    public function destroy(Request $request, Shop $shop, Product $product): JsonResponse
+    {
+        abort_unless($product->shop_id === $shop->id, 404);
+
+        $this->authorize('delete', $product);
+
+        $this->productService->deleteProduct($product, $request->boolean('force'));
+
+        return response()->json(null, 204);
     }
 }

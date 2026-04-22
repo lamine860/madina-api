@@ -29,7 +29,11 @@ final class ProductResource extends JsonResource
             'is_active' => $this->is_active,
             'category' => CategoryResource::make($this->whenLoaded('category')),
             'variants' => ProductVariantResource::collection($this->whenLoaded('variants')),
-            'gallery' => $this->getMedia('gallery')->map(fn ($media) => $media->getFullUrl())->values()->all(),
+            'gallery' => $this->whenLoaded(
+                'productImages',
+                fn () => ProductImageResource::collection($this->productImages),
+                [],
+            ),
             'created_at' => $this->created_at?->toIso8601String(),
             'updated_at' => $this->updated_at?->toIso8601String(),
         ];

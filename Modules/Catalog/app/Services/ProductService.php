@@ -8,15 +8,72 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use Intervention\Image\Encoders\WebpEncoder;
+use Intervention\Image\Exceptions\ImageDecoderException;
+use Intervention\Image\ImageManager;
 use Modules\Catalog\Entities\Product;
 use Modules\Catalog\Entities\ProductVariant;
 use Modules\Catalog\Exceptions\InsufficientStockException;
+use Modules\Catalog\Exceptions\ProductLinkedToOrdersException;
 use Modules\Shop\Entities\Shop;
 use Throwable;
 
 final class ProductService
 {
+    public function __construct(
+        private readonly ImageManager $imageManager,
+        private readonly ProductImageService $productImageService,
+    ) {}
+
+    /**
+     * Décode chaque upload, normalise en WebP, enregistre original / miniature (300) / large (800) sur le disque public.
+     *
+     * @param  list<UploadedFile>  $files
+     *
+     * @throws ValidationException
+     */
+    public function uploadImages(Product $product, array $files): void
+    {
+        if ($files === []) {
+            return;
+        }
+
+        $this->ensureProductImageDirectories($product);
+
+        $baseOrder = (int) ($product->productImages()->max('sort_order') ?? -1);
+        $hasFeatured = $product->productImages()->where('is_featured', true)->exists();
+
+        foreach (array_values($files) as $index => $file) {
+            if (! $file instanceof UploadedFile) {
+                continue;
+            }
+
+            $filename = Str::uuid()->toString().'.webp';
+
+            try {
+                $this->persistProductImageVariantsFromUpload($product, $file, $filename);
+            } catch (ImageDecoderException) {
+                throw ValidationException::withMessages([
+                    'gallery.'.$index => 'Le fichier n’est pas une image valide ou n’a pas pu être décodé.',
+                ]);
+            } catch (Throwable $e) {
+                report($e);
+                throw ValidationException::withMessages([
+                    'gallery.'.$index => 'Impossible de traiter cette image (redimensionnement ou enregistrement).',
+                ]);
+            }
+
+            $product->productImages()->create([
+                'filename' => $filename,
+                'is_featured' => ! $hasFeatured && $index === 0,
+                'sort_order' => $baseOrder + $index + 1,
+            ]);
+        }
+    }
+
     /**
      * Crée un produit, ses variantes et attache la galerie média en une transaction.
      *
@@ -54,12 +111,10 @@ final class ProductService
                 }
 
                 if ($galleryFiles !== null) {
-                    foreach ($galleryFiles as $file) {
-                        $product->addMedia($file)->toMediaCollection('gallery');
-                    }
+                    $this->uploadImages($product, $galleryFiles);
                 }
 
-                return $product->load(['variants', 'category', 'shop', 'media']);
+                return $product->load(['variants', 'category', 'shop', 'productImages']);
             });
         } catch (Throwable $e) {
             report($e);
@@ -72,11 +127,12 @@ final class ProductService
      *
      * @param  array<string, mixed>  $productFields  name, description, category_id, base_price, is_active (optionnel)
      * @param  list<array{id?: int|null, sku: string, price: mixed, attributes: array}>  $variantRows
+     * @param  list<UploadedFile>|null  $galleryFiles  Images supplémentaires à ajouter (sans supprimer l’existant).
      */
-    public function updateProduct(Product $product, array $productFields, array $variantRows): Product
+    public function updateProduct(Product $product, array $productFields, array $variantRows, ?array $galleryFiles = null): Product
     {
         try {
-            return DB::transaction(function () use ($product, $productFields, $variantRows): Product {
+            return DB::transaction(function () use ($product, $productFields, $variantRows, $galleryFiles): Product {
                 /** @var Product $locked */
                 $locked = Product::query()
                     ->whereKey($product->id)
@@ -161,13 +217,82 @@ final class ProductService
                         $orphan->delete();
                     });
 
-                return $locked->fresh(['variants', 'category', 'shop', 'media']) ?? $locked;
+                if ($galleryFiles !== null) {
+                    $this->uploadImages($locked, $galleryFiles);
+                }
+
+                return $locked->fresh(['variants', 'category', 'shop', 'productImages']) ?? $locked;
             });
         } catch (ModelNotFoundException $e) {
             throw $e;
         } catch (Throwable $e) {
             report($e);
             throw $e;
+        }
+    }
+
+    /**
+     * Indique si le produit est lié à des commandes (stub : toujours false tant que le module Order n’expose pas les liaisons).
+     */
+    public function hasOrders(Product $product): bool
+    {
+        return false;
+    }
+
+    /**
+     * Suppression logique (défaut) ou définitive. Les variantes suivent le même mode pour la suppression logique.
+     *
+     * @throws ProductLinkedToOrdersException
+     */
+    public function deleteProduct(Product $product, bool $force = false): void
+    {
+        if ($this->hasOrders($product)) {
+            throw new ProductLinkedToOrdersException;
+        }
+
+        $productId = $product->id;
+
+        if (! $force) {
+            try {
+                DB::transaction(function () use ($productId): void {
+                    /** @var Product $locked */
+                    $locked = Product::query()
+                        ->whereKey($productId)
+                        ->lockForUpdate()
+                        ->firstOrFail();
+
+                    ProductVariant::query()
+                        ->where('product_id', $locked->id)
+                        ->delete();
+
+                    $locked->delete();
+                });
+            } catch (Throwable $e) {
+                report($e);
+                throw $e;
+            }
+
+            return;
+        }
+
+        try {
+            DB::transaction(function () use ($productId): void {
+                Product::query()
+                    ->whereKey($productId)
+                    ->lockForUpdate()
+                    ->firstOrFail();
+
+                DB::table('product_images')->where('product_id', $productId)->delete();
+                DB::table('product_variants')->where('product_id', $productId)->delete();
+                DB::table('products')->where('id', $productId)->delete();
+            });
+        } catch (Throwable $e) {
+            report($e);
+            throw $e;
+        }
+
+        if (Storage::disk('public')->exists('products/'.$productId)) {
+            Storage::disk('public')->deleteDirectory('products/'.$productId);
         }
     }
 
@@ -339,6 +464,72 @@ final class ProductService
     {
         if ($quantity <= 0) {
             throw new \InvalidArgumentException('La quantité doit être un entier strictement positif.');
+        }
+    }
+
+    private function ensureProductImageDirectories(Product $product): void
+    {
+        $disk = Storage::disk('public');
+        $base = 'products/'.$product->id;
+
+        foreach (['original', 'thumbs', 'large'] as $segment) {
+            $disk->makeDirectory($base.'/'.$segment);
+        }
+    }
+
+    private function webpQuality(): int
+    {
+        return max(1, min(100, (int) config('catalog.image.webp_quality', 85)));
+    }
+
+    /**
+     * @throws ImageDecoderException
+     */
+    private function persistProductImageVariantsFromUpload(Product $product, UploadedFile $file, string $filename): void
+    {
+        $sourcePath = $file->getRealPath();
+        if ($sourcePath === false || $sourcePath === '') {
+            $sourcePath = $file->getPathname();
+        }
+
+        $disk = Storage::disk('public');
+        $base = 'products/'.$product->id;
+
+        $paths = [
+            $base.'/original/'.$filename,
+            $base.'/thumbs/'.$filename,
+            $base.'/large/'.$filename,
+        ];
+
+        $quality = $this->webpQuality();
+        $encoder = new WebpEncoder($quality);
+
+        try {
+            $this->imageManager->decodePath($sourcePath)
+                ->encode($encoder)
+                ->save($disk->path($paths[0]));
+
+            $this->imageManager->decodePath($sourcePath)
+                ->scaleDown(300, 300)
+                ->encode($encoder)
+                ->save($disk->path($paths[1]));
+
+            $this->imageManager->decodePath($sourcePath)
+                ->scaleDown(800, 800)
+                ->encode($encoder)
+                ->save($disk->path($paths[2]));
+        } catch (Throwable $e) {
+            foreach ($paths as $relative) {
+                if ($disk->exists($relative)) {
+                    $disk->delete($relative);
+                }
+            }
+
+            if ($e instanceof ImageDecoderException) {
+                throw $e;
+            }
+
+            throw $e;
         }
     }
 

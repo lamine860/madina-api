@@ -77,6 +77,14 @@ final class UpdateProductRequest extends FormRequest
                 'description' => 'INTERDIT sur cette route — le stock ne peut pas être modifié ici (risque d’écraser les mouvements réels). Utiliser `adjustStock` / endpoints stock.',
                 'example' => null,
             ],
+            'gallery' => [
+                'description' => 'Images supplémentaires à ajouter à la galerie (multipart, optionnel). Pour réordonner ou supprimer, utiliser les routes `PATCH/DELETE .../images`.',
+                'example' => ['(binary)'],
+            ],
+            'gallery.*' => [
+                'description' => 'Une image (jpeg, png, webp, gif, svg).',
+                'example' => '(binary)',
+            ],
         ];
     }
 
@@ -108,6 +116,8 @@ final class UpdateProductRequest extends FormRequest
             'variants.*.price' => ['required', 'numeric', 'min:0'],
             'variants.*.attributes' => ['required', 'array'],
             'variants.*.stock_qty' => ['prohibited'],
+            'gallery' => ['sometimes', 'array', 'max:20'],
+            'gallery.*' => ['file', 'max:5120', 'mimes:jpeg,jpg,png,webp,gif,svg'],
         ];
     }
 

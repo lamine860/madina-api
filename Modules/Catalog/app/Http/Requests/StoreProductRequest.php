@@ -102,9 +102,11 @@ final class StoreProductRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('products', 'slug')->where(function ($query) {
+                    $query->whereNull('deleted_at');
                     $shop = $this->route('shop');
-
-                    return $shop instanceof Shop ? $query->where('shop_id', $shop->id) : $query;
+                    if ($shop instanceof Shop) {
+                        $query->where('shop_id', $shop->id);
+                    }
                 }),
             ],
             'description' => ['nullable', 'string'],
@@ -117,7 +119,9 @@ final class StoreProductRequest extends FormRequest
                 'string',
                 'max:100',
                 'distinct',
-                Rule::unique('product_variants', 'sku'),
+                Rule::unique('product_variants', 'sku')->where(static function ($query): void {
+                    $query->whereNull('deleted_at');
+                }),
             ],
             'variants.*.price' => ['required', 'numeric', 'min:0'],
             'variants.*.stock_qty' => ['required', 'integer', 'min:0'],
