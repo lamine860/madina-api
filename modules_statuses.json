@@ -1,5 +1,6 @@
 {
     "Core": true,
     "Shop": true,
-    "Catalog": true
+    "Catalog": true,
+    "Cart": true
 }
