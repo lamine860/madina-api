@@ -44,7 +44,10 @@
             "Modules\\Catalog\\Database\\Seeders\\": "Modules/Catalog/database/seeders/",
             "Modules\\Cart\\": "Modules/Cart/app/",
             "Modules\\Cart\\Database\\Factories\\": "Modules/Cart/database/factories/",
-            "Modules\\Cart\\Database\\Seeders\\": "Modules/Cart/database/seeders/"
+            "Modules\\Cart\\Database\\Seeders\\": "Modules/Cart/database/seeders/",
+            "Modules\\Orders\\": "Modules/Orders/app/",
+            "Modules\\Orders\\Database\\Factories\\": "Modules/Orders/database/factories/",
+            "Modules\\Orders\\Database\\Seeders\\": "Modules/Orders/database/seeders/"
         }
     },
     "autoload-dev": {
@@ -52,7 +55,8 @@
             "Tests\\": "tests/",
             "Modules\\Core\\Tests\\": "Modules/Core/tests/",
             "Modules\\Catalog\\Tests\\": "Modules/Catalog/tests/",
-            "Modules\\Cart\\Tests\\": "Modules/Cart/tests/"
+            "Modules\\Cart\\Tests\\": "Modules/Cart/tests/",
+            "Modules\\Orders\\Tests\\": "Modules/Orders/tests/"
         }
     },
     "scripts": {

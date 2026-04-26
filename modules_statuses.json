@@ -2,5 +2,6 @@
     "Core": true,
     "Shop": true,
     "Catalog": true,
-    "Cart": true
+    "Cart": true,
+    "Orders": true
 }

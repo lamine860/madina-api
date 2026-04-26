@@ -41,4 +41,12 @@ final class ShopPolicy
     {
         return $shop->user_id === $user->id;
     }
+
+    /**
+     * Liste des commandes contenant des articles de cette boutique (vue vendeur).
+     */
+    public function viewOrders(User $user, Shop $shop): bool
+    {
+        return $shop->user_id === $user->id;
+    }
 }

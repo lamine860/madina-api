@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Cart\Services;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -136,6 +137,25 @@ final class CartService
         }
 
         return $total;
+    }
+
+    /**
+     * Lignes panier verrouillées pour le passage en commande (variante, produit, boutique).
+     *
+     * @return Collection<int, CartItem>
+     */
+    public function getCartLinesForCheckout(User $user): Collection
+    {
+        return CartItem::query()
+            ->where('user_id', $user->id)
+            ->with(['productVariant.product.shop'])
+            ->lockForUpdate()
+            ->get();
+    }
+
+    public function clearCart(User $user): void
+    {
+        CartItem::query()->where('user_id', $user->id)->delete();
     }
 
     /**

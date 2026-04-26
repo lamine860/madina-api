@@ -1,16 +1,62 @@
-name: Endpoints
+name: Catalogue
 description: ''
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: 'api/v1/shops/{slug}'
+    uri: api/v1/categories
     metadata:
       custom: []
-      groupName: Endpoints
+      groupName: Catalogue
       groupDescription: ''
-      subgroup: ''
+      subgroup: |-
+        Catégories
+
+        Liste les catégories racines avec leurs sous-catégories (arbre, profondeur limitée côté serveur).
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"categories":[]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/categories/{slug}'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: |-
+        Catégories
+
+        Affiche une catégorie avec son fil d’Ariane (racine → … → catégorie courante) et ses enfants directs.
       subgroupDescription: ''
       title: ''
       description: ''
@@ -23,7 +69,7 @@ endpoints:
       slug:
         custom: []
         name: slug
-        description: 'The slug of the shop.'
+        description: 'The slug of the category.'
         required: true
         example: architecto
         type: string
@@ -41,10 +87,10 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
+        status: 404
         content: |-
           {
-              "message": "Server Error"
+              "message": "No query results for model [Modules\\Catalog\\Models\\Category] architecto"
           }
         headers:
           cache-control: 'no-cache, private'
@@ -53,6 +99,1037 @@ endpoints:
         description: null
     responseFields: []
     auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/shops/{shop_slug}/products'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: Produits
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      shop_slug:
+        custom: []
+        name: shop_slug
+        description: 'The slug of the shop.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      shop_slug: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 404
+        content: |-
+          {
+              "message": "No query results for model [Modules\\Shop\\Models\\Shop] architecto"
+          }
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/shops/{shop_slug}/products/{slug}'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: Produits
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      shop_slug:
+        custom: []
+        name: shop_slug
+        description: 'The slug of the shop.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      slug:
+        custom: []
+        name: slug
+        description: 'The slug of the product.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      shop_slug: architecto
+      slug: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 404
+        content: |-
+          {
+              "message": "No query results for model [Modules\\Shop\\Models\\Shop] architecto"
+          }
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/categories
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: Catégories
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Libellé de la catégorie. Must not be greater than 255 characters.'
+        required: true
+        example: Électronique
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      parent_id:
+        custom: []
+        name: parent_id
+        description: 'Identifiant de la catégorie parente (optionnel pour une racine). The <code>id</code> of an existing record in the categories table.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      name: Électronique
+      parent_id: 1
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/v1/categories/{slug}'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: Catégories
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      slug:
+        custom: []
+        name: slug
+        description: 'The slug of the category.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      slug: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Nouveau libellé. Must not be greater than 255 characters.'
+        required: true
+        example: 'Électronique grand public'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      slug:
+        custom: []
+        name: slug
+        description: 'Slug URL (optionnel ; sinon dérivé automatiquement du nom). Must match the regex /^[a-z0-9]+(?:-[a-z0-9]+)*$/. Must not be greater than 255 characters.'
+        required: false
+        example: electronique-grand-public
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      parent_id:
+        custom: []
+        name: parent_id
+        description: 'Nouvelle catégorie parente (null = racine). Ne peut être la catégorie elle-même ni un de ses descendants. The <code>id</code> of an existing record in the categories table.'
+        required: false
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      name: 'Électronique grand public'
+      slug: electronique-grand-public
+      parent_id: 2
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/categories/{slug}'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: Catégories
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      slug:
+        custom: []
+        name: slug
+        description: 'The slug of the category.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      slug: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/v1/shops/{shop_id}/products'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: Produits
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      shop_id:
+        custom: []
+        name: shop_id
+        description: 'The ID of the shop.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      shop_id: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Nom commercial du produit. Must not be greater than 255 characters.'
+        required: true
+        example: 'T-shirt coton bio'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      slug:
+        custom: []
+        name: slug
+        description: 'Identifiant URL unique dans la boutique (optionnel, dérivé du nom si absent). Must not be greater than 255 characters.'
+        required: false
+        example: t-shirt-coton-bio
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: 'Description longue (HTML ou texte).'
+        required: false
+        example: 'T-shirt 100% coton certifié, coupe droite.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      base_price:
+        custom: []
+        name: base_price
+        description: 'Prix catalogue de référence (décimal). Must be at least 0.'
+        required: true
+        example: 29.99
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      is_active:
+        custom: []
+        name: is_active
+        description: 'Produit visible dans le catalogue.'
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category_id:
+        custom: []
+        name: category_id
+        description: 'ID de la catégorie (arbre hiérarchique via parent_id). The <code>id</code> of an existing record in the categories table.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      variants:
+        custom: []
+        name: variants
+        description: 'Liste des variantes (SKU, prix, stock, attributs JSON). En multipart, peut être envoyée en JSON string. Must have at least 1 items.'
+        required: true
+        example:
+          -
+            sku: TS-BIO-M-BLK
+            price: 29.99
+            stock_qty: 42
+            attributes:
+              size: M
+              color: black
+        type: 'object[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      gallery:
+        custom: []
+        name: gallery
+        description: 'Une image (jpeg, png, webp, gif, svg). Must be a file. Must not be greater than 5120 kilobytes.'
+        required: false
+        example:
+          - (binary)
+        type: 'file[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'variants[].sku':
+        custom: []
+        name: 'variants[].sku'
+        description: 'Code SKU unique globalement. Must not be greater than 100 characters.'
+        required: true
+        example: TS-BIO-M-BLK
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'variants[].price':
+        custom: []
+        name: 'variants[].price'
+        description: 'Prix de la variante. Must be at least 0.'
+        required: true
+        example: 29.99
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'variants[].stock_qty':
+        custom: []
+        name: 'variants[].stock_qty'
+        description: 'Quantité disponible. Must be at least 0.'
+        required: true
+        example: 42
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'variants[].attributes':
+        custom: []
+        name: 'variants[].attributes'
+        description: 'Attributs de variante sous forme d’objet JSON (taille, couleur, etc.).'
+        required: true
+        example:
+          size: M
+          color: black
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      name: 'T-shirt coton bio'
+      slug: t-shirt-coton-bio
+      description: 'T-shirt 100% coton certifié, coupe droite.'
+      base_price: 29.99
+      is_active: true
+      category_id: 1
+      variants:
+        -
+          sku: TS-BIO-M-BLK
+          price: 29.99
+          stock_qty: 42
+          attributes:
+            size: M
+            color: black
+      gallery:
+        - (binary)
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/v1/shops/{shop_id}/products/{id}'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: Produits
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      shop_id:
+        custom: []
+        name: shop_id
+        description: 'The ID of the shop.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the product.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      shop_id: 16
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Nom commercial du produit. Si modifié, le slug peut être régénéré seulement si le produit est inactif ou créé depuis au moins 24h (protection SEO des fiches actives récentes). Must not be greater than 255 characters.'
+        required: true
+        example: 'T-shirt coton bio'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: 'Description longue.'
+        required: false
+        example: 'T-shirt 100% coton.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      category_id:
+        custom: []
+        name: category_id
+        description: 'ID de catégorie. The <code>id</code> of an existing record in the categories table.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      base_price:
+        custom: []
+        name: base_price
+        description: 'Prix catalogue de référence. Must be at least 0.'
+        required: true
+        example: 29.99
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      is_active:
+        custom: []
+        name: is_active
+        description: 'Produit visible ou non.'
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      variants:
+        custom: []
+        name: variants
+        description: 'Variantes à synchroniser. `stock_qty` est ignoré ici (non envoyé) — utiliser l’API d’ajustement de stock. Must have at least 1 items.'
+        required: true
+        example:
+          -
+            id: 1
+            sku: TS-BIO-M-BLK
+            price: 29.99
+            attributes:
+              size: M
+              color: black
+        type: 'object[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      gallery:
+        custom: []
+        name: gallery
+        description: 'Une image (jpeg, png, webp, gif, svg). Must be a file. Must not be greater than 5120 kilobytes.'
+        required: false
+        example:
+          - (binary)
+        type: 'file[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'variants[].id':
+        custom: []
+        name: 'variants[].id'
+        description: 'ID de variante existante (optionnel ; sinon identification par SKU).'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      'variants[].sku':
+        custom: []
+        name: 'variants[].sku'
+        description: 'SKU unique (hors lignes concurrentes de la même requête). Must not be greater than 100 characters.'
+        required: true
+        example: TS-BIO-M-BLK
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'variants[].price':
+        custom: []
+        name: 'variants[].price'
+        description: 'Prix de la variante. Must be at least 0.'
+        required: true
+        example: 29.99
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'variants[].attributes':
+        custom: []
+        name: 'variants[].attributes'
+        description: 'Attributs JSON (clés normalisées en minuscules côté serveur).'
+        required: true
+        example:
+          size: M
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'variants[].stock_qty':
+        custom: []
+        name: 'variants[].stock_qty'
+        description: 'INTERDIT sur cette route — le stock ne peut pas être modifié ici (risque d’écraser les mouvements réels). Utiliser `adjustStock` / endpoints stock.'
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      name: 'T-shirt coton bio'
+      description: 'T-shirt 100% coton.'
+      category_id: 1
+      base_price: 29.99
+      is_active: true
+      variants:
+        -
+          id: 1
+          sku: TS-BIO-M-BLK
+          price: 29.99
+          attributes:
+            size: M
+            color: black
+      gallery:
+        - (binary)
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/shops/{shop_id}/products/{id}'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: Produits
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      shop_id:
+        custom: []
+        name: shop_id
+        description: 'The ID of the shop.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the product.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      shop_id: 16
+      id: architecto
+    queryParameters:
+      force:
+        custom: []
+        name: force
+        description: 'Suppression définitive (hard delete) : fichiers galerie sur disque + enregistrements. Défaut : suppression logique.'
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      force: false
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/v1/shops/{shop_id}/products/{product_id}/images'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: 'Produits — galerie'
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      shop_id:
+        custom: []
+        name: shop_id
+        description: 'The ID of the shop.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      product_id:
+        custom: []
+        name: product_id
+        description: 'The ID of the product.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      shop_id: 16
+      product_id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      gallery:
+        custom: []
+        name: gallery
+        description: 'Une image (jpeg, png, webp, gif, svg). Must be a file. Must not be greater than 5120 kilobytes.'
+        required: false
+        example:
+          - (binary)
+        type: 'file[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      gallery:
+        - (binary)
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PATCH
+    uri: 'api/v1/shops/{shop_id}/products/{product_id}/images'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: 'Produits — galerie'
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      shop_id:
+        custom: []
+        name: shop_id
+        description: 'The ID of the shop.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      product_id:
+        custom: []
+        name: product_id
+        description: 'The ID of the product.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      shop_id: 16
+      product_id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      image_ids:
+        custom: []
+        name: image_ids
+        description: ''
+        required: false
+        example:
+          - 16
+        type: 'integer[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      featured_image_id:
+        custom: []
+        name: featured_image_id
+        description: 'ID de l’image mise en avant (doit figurer dans `image_ids`). Si absent, la première entrée de `image_ids` devient la mise en avant.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      image_ids:
+        - 16
+      featured_image_id: 1
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/shops/{shop_id}/products/{product_id}/images/{product_image}'
+    metadata:
+      custom: []
+      groupName: Catalogue
+      groupDescription: ''
+      subgroup: 'Produits — galerie'
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      shop_id:
+        custom: []
+        name: shop_id
+        description: 'The ID of the shop.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      product_id:
+        custom: []
+        name: product_id
+        description: 'The ID of the product.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      product_image:
+        custom: []
+        name: product_image
+        description: ''
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      shop_id: 16
+      product_id: architecto
+      product_image: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null
