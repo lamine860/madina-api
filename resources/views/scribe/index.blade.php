@@ -253,7 +253,13 @@ Affiche une catégorie avec son fil d’Ariane (racine → … → catégorie co
                     <a href="#endpoints">Endpoints</a>
                 </li>
                                     <ul id="tocify-subheader-endpoints" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-v1-shops--slug-">
+                                                    <li class="tocify-item level-2" data-unique="endpoints-POSTapi-v1-payments-lengopay-webhook">
+                                <a href="#endpoints-POSTapi-v1-payments-lengopay-webhook">POST api/v1/payments/lengopay/webhook</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-v1-orders--order_id--payments-lengopay-initiate">
+                                <a href="#endpoints-POSTapi-v1-orders--order_id--payments-lengopay-initiate">POST api/v1/orders/{order_id}/payments/lengopay/initiate</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-v1-shops--slug-">
                                 <a href="#endpoints-GETapi-v1-shops--slug-">GET api/v1/shops/{slug}</a>
                             </li>
                                                                         </ul>
@@ -312,7 +318,7 @@ Affiche une catégorie avec son fil d’Ariane (racine → … → catégorie co
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: April 26, 2026</li>
+        <li>Last updated: May 1, 2026</li>
     </ul>
 </div>
 
@@ -985,7 +991,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "description=Vente de matériel informatique et accessoires."\
     --form "company_name=Madina SARL"\
     --form "vat_number=RC-CON-2024-B-1234"\
-    --form "logo=@/tmp/phpokhs15v7tttd8kGDahH" </code></pre></div>
+    --form "logo=@/tmp/phpa7k450um4b557KahMAj" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -1171,7 +1177,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpokhs15v7tttd8kGDahH</code></p>
+<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpa7k450um4b557KahMAj</code></p>
         </div>
         </form>
 
@@ -1199,7 +1205,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "description=Vente de matériel informatique et accessoires."\
     --form "company_name=Madina SARL"\
     --form "vat_number=RC-CON-2024-B-1234"\
-    --form "logo=@/tmp/phpggd5hk09s4h2enPfgpH" </code></pre></div>
+    --form "logo=@/tmp/php82ndut59piho6gDJGGj" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -1398,7 +1404,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpggd5hk09s4h2enPfgpH</code></p>
+<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/php82ndut59piho6gDJGGj</code></p>
         </div>
         </form>
 
@@ -4331,12 +4337,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"shipping_address\": {
-        \"line1\": \"b\",
-        \"city\": \"n\",
-        \"postal_code\": \"g\",
-        \"country\": \"zm\"
+        \"line1\": \"12 avenue de la République\",
+        \"city\": \"Conakry\",
+        \"postal_code\": \"BP 1234\",
+        \"country\": \"GN\"
     },
-    \"notes\": \"i\"
+    \"billing_address\": {
+        \"line1\": \"12 avenue de la République\",
+        \"city\": \"Conakry\",
+        \"postal_code\": \"BP 1234\",
+        \"country\": \"GN\"
+    },
+    \"notes\": \"Livrer avant 18h si possible.\"
 }"
 </code></pre></div>
 
@@ -4354,12 +4366,18 @@ const headers = {
 
 let body = {
     "shipping_address": {
-        "line1": "b",
-        "city": "n",
-        "postal_code": "g",
-        "country": "zm"
+        "line1": "12 avenue de la République",
+        "city": "Conakry",
+        "postal_code": "BP 1234",
+        "country": "GN"
     },
-    "notes": "i"
+    "billing_address": {
+        "line1": "12 avenue de la République",
+        "city": "Conakry",
+        "postal_code": "BP 1234",
+        "country": "GN"
+    },
+    "notes": "Livrer avant 18h si possible."
 };
 
 fetch(url, {
@@ -4473,10 +4491,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="shipping_address.line1"                data-endpoint="POSTapi-v1-orders-checkout"
-               value="b"
+               value="12 avenue de la République"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>b</code></p>
+<p>Ligne d’adresse (rue, numéro). Must not be greater than 255 characters. Example: <code>12 avenue de la République</code></p>
                     </div>
                                                                 <div style="margin-left: 14px; clear: unset;">
                         <b style="line-height: 2;"><code>city</code></b>&nbsp;&nbsp;
@@ -4485,10 +4503,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="shipping_address.city"                data-endpoint="POSTapi-v1-orders-checkout"
-               value="n"
+               value="Conakry"
                data-component="body">
     <br>
-<p>Must not be greater than 120 characters. Example: <code>n</code></p>
+<p>Ville de livraison. Must not be greater than 120 characters. Example: <code>Conakry</code></p>
                     </div>
                                                                 <div style="margin-left: 14px; clear: unset;">
                         <b style="line-height: 2;"><code>postal_code</code></b>&nbsp;&nbsp;
@@ -4497,10 +4515,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="shipping_address.postal_code"                data-endpoint="POSTapi-v1-orders-checkout"
-               value="g"
+               value="BP 1234"
                data-component="body">
     <br>
-<p>Must not be greater than 32 characters. Example: <code>g</code></p>
+<p>Code postal ou équivalent. Must not be greater than 32 characters. Example: <code>BP 1234</code></p>
                     </div>
                                                                 <div style="margin-left: 14px; clear: unset;">
                         <b style="line-height: 2;"><code>country</code></b>&nbsp;&nbsp;
@@ -4509,10 +4527,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="shipping_address.country"                data-endpoint="POSTapi-v1-orders-checkout"
-               value="zm"
+               value="GN"
                data-component="body">
     <br>
-<p>Must be 2 characters. Example: <code>zm</code></p>
+<p>Code pays ISO 3166-1 alpha-2. Must be 2 characters. Example: <code>GN</code></p>
                     </div>
                                     </details>
         </div>
@@ -4526,7 +4544,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-
+<p>Adresse de facturation (optionnelle). Même structure que shipping_address si fournie.</p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
@@ -4535,10 +4553,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="notes"                data-endpoint="POSTapi-v1-orders-checkout"
-               value="i"
+               value="Livrer avant 18h si possible."
                data-component="body">
     <br>
-<p>Must not be greater than 5000 characters. Example: <code>i</code></p>
+<p>Message libre pour le vendeur (optionnel). Must not be greater than 5000 characters. Example: <code>Livrer avant 18h si possible.</code></p>
         </div>
         </form>
 
@@ -4562,7 +4580,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"status\": \"architecto\"
+    \"status\": \"paid\"
 }"
 </code></pre></div>
 
@@ -4579,7 +4597,7 @@ const headers = {
 };
 
 let body = {
-    "status": "architecto"
+    "status": "paid"
 };
 
 fetch(url, {
@@ -4696,10 +4714,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="status"                data-endpoint="PATCHapi-v1-orders--order_id--status"
-               value="architecto"
+               value="paid"
                data-component="body">
     <br>
-<p>Example: <code>architecto</code></p>
+<p>Nouveau statut : pending, paid, processing, shipped, cancelled, refunded. Example: <code>paid</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>pending</code></li> <li><code>paid</code></li> <li><code>processing</code></li> <li><code>shipped</code></li> <li><code>cancelled</code></li> <li><code>refunded</code></li></ul>
         </div>
@@ -4865,7 +4883,265 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
     
 
-                                <h2 id="endpoints-GETapi-v1-shops--slug-">GET api/v1/shops/{slug}</h2>
+                                <h2 id="endpoints-POSTapi-v1-payments-lengopay-webhook">POST api/v1/payments/lengopay/webhook</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-v1-payments-lengopay-webhook">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost:8000/api/v1/payments/lengopay/webhook" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/api/v1/payments/lengopay/webhook"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-payments-lengopay-webhook">
+</span>
+<span id="execution-results-POSTapi-v1-payments-lengopay-webhook" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-payments-lengopay-webhook"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-payments-lengopay-webhook"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-payments-lengopay-webhook" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-payments-lengopay-webhook">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-payments-lengopay-webhook" data-method="POST"
+      data-path="api/v1/payments/lengopay/webhook"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-payments-lengopay-webhook', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-payments-lengopay-webhook"
+                    onclick="tryItOut('POSTapi-v1-payments-lengopay-webhook');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-payments-lengopay-webhook"
+                    onclick="cancelTryOut('POSTapi-v1-payments-lengopay-webhook');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-payments-lengopay-webhook"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/payments/lengopay/webhook</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-payments-lengopay-webhook"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-payments-lengopay-webhook"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="endpoints-POSTapi-v1-orders--order_id--payments-lengopay-initiate">POST api/v1/orders/{order_id}/payments/lengopay/initiate</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-v1-orders--order_id--payments-lengopay-initiate">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost:8000/api/v1/orders/16/payments/lengopay/initiate" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"payment_method\": \"orange\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/api/v1/orders/16/payments/lengopay/initiate"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "payment_method": "orange"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-orders--order_id--payments-lengopay-initiate">
+</span>
+<span id="execution-results-POSTapi-v1-orders--order_id--payments-lengopay-initiate" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-orders--order_id--payments-lengopay-initiate"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-orders--order_id--payments-lengopay-initiate"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-orders--order_id--payments-lengopay-initiate" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-orders--order_id--payments-lengopay-initiate">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-orders--order_id--payments-lengopay-initiate" data-method="POST"
+      data-path="api/v1/orders/{order_id}/payments/lengopay/initiate"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-orders--order_id--payments-lengopay-initiate', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-orders--order_id--payments-lengopay-initiate"
+                    onclick="tryItOut('POSTapi-v1-orders--order_id--payments-lengopay-initiate');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-orders--order_id--payments-lengopay-initiate"
+                    onclick="cancelTryOut('POSTapi-v1-orders--order_id--payments-lengopay-initiate');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-orders--order_id--payments-lengopay-initiate"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/orders/{order_id}/payments/lengopay/initiate</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-orders--order_id--payments-lengopay-initiate"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-orders--order_id--payments-lengopay-initiate"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>order_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="order_id"                data-endpoint="POSTapi-v1-orders--order_id--payments-lengopay-initiate"
+               value="16"
+               data-component="url">
+    <br>
+<p>The ID of the order. Example: <code>16</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>payment_method</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="payment_method"                data-endpoint="POSTapi-v1-orders--order_id--payments-lengopay-initiate"
+               value="orange"
+               data-component="body">
+    <br>
+<p>Canal de paiement : orange, moov ou card. Example: <code>orange</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>orange</code></li> <li><code>moov</code></li> <li><code>card</code></li> <li><code>kulu</code></li> <li><code>wave</code></li></ul>
+        </div>
+        </form>
+
+                    <h2 id="endpoints-GETapi-v1-shops--slug-">GET api/v1/shops/{slug}</h2>
 
 <p>
 </p>
@@ -5171,7 +5447,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"product_variant_id\": 16
+    \"product_variant_id\": 1
 }"
 </code></pre></div>
 
@@ -5188,7 +5464,7 @@ const headers = {
 };
 
 let body = {
-    "product_variant_id": 16
+    "product_variant_id": 1
 };
 
 fetch(url, {
@@ -5292,10 +5568,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="product_variant_id"                data-endpoint="POSTapi-v1-wishlist"
-               value="16"
+               value="1"
                data-component="body">
     <br>
-<p>The <code>id</code> of an existing record in the product_variants table. Example: <code>16</code></p>
+<p>Identifiant de la variante produit à enregistrer en favori. The <code>id</code> of an existing record in the product_variants table. Example: <code>1</code></p>
         </div>
         </form>
 
@@ -5604,8 +5880,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"product_variant_id\": 16,
-    \"quantity\": 22
+    \"product_variant_id\": 1,
+    \"quantity\": 2
 }"
 </code></pre></div>
 
@@ -5622,8 +5898,8 @@ const headers = {
 };
 
 let body = {
-    "product_variant_id": 16,
-    "quantity": 22
+    "product_variant_id": 1,
+    "quantity": 2
 };
 
 fetch(url, {
@@ -5727,10 +6003,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="product_variant_id"                data-endpoint="POSTapi-v1-cart"
-               value="16"
+               value="1"
                data-component="body">
     <br>
-<p>The <code>id</code> of an existing record in the product_variants table. Example: <code>16</code></p>
+<p>Identifiant de la variante produit à ajouter au panier. The <code>id</code> of an existing record in the product_variants table. Example: <code>1</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>quantity</code></b>&nbsp;&nbsp;
@@ -5739,10 +6015,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="quantity"                data-endpoint="POSTapi-v1-cart"
-               value="22"
+               value="2"
                data-component="body">
     <br>
-<p>Must be at least 1. Example: <code>22</code></p>
+<p>Quantité souhaitée (≥ 1). Must be at least 1. Example: <code>2</code></p>
         </div>
         </form>
 
@@ -5765,7 +6041,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"quantity\": 16
+    \"quantity\": 3
 }"
 </code></pre></div>
 
@@ -5782,7 +6058,7 @@ const headers = {
 };
 
 let body = {
-    "quantity": 16
+    "quantity": 3
 };
 
 fetch(url, {
@@ -5899,10 +6175,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="quantity"                data-endpoint="PATCHapi-v1-cart-items--cart_item-"
-               value="16"
+               value="3"
                data-component="body">
     <br>
-<p>Must be at least 1. Example: <code>16</code></p>
+<p>Nouvelle quantité pour la ligne (≥ 1). Must be at least 1. Example: <code>3</code></p>
         </div>
         </form>
 

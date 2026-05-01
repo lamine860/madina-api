@@ -72,9 +72,9 @@ endpoints:
       product_variant_id:
         custom: []
         name: product_variant_id
-        description: 'The <code>id</code> of an existing record in the product_variants table.'
+        description: 'Identifiant de la variante produit à ajouter au panier. The <code>id</code> of an existing record in the product_variants table.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -83,17 +83,17 @@ endpoints:
       quantity:
         custom: []
         name: quantity
-        description: 'Must be at least 1.'
+        description: 'Quantité souhaitée (≥ 1). Must be at least 1.'
         required: true
-        example: 22
+        example: 2
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      product_variant_id: 16
-      quantity: 22
+      product_variant_id: 1
+      quantity: 2
     fileParameters: []
     responses: []
     responseFields: []
@@ -143,16 +143,16 @@ endpoints:
       quantity:
         custom: []
         name: quantity
-        description: 'Must be at least 1.'
+        description: 'Nouvelle quantité pour la ligne (≥ 1). Must be at least 1.'
         required: true
-        example: 16
+        example: 3
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      quantity: 16
+      quantity: 3
     fileParameters: []
     responses: []
     responseFields: []

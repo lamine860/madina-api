@@ -15,6 +15,21 @@ final class UpdateCartItemRequest extends FormRequest
     }
 
     /**
+     * Métadonnées Scribe pour la mise à jour d’une ligne panier.
+     *
+     * @return array<string, array{description?: string, example?: int}>
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'quantity' => [
+                'description' => 'Nouvelle quantité pour la ligne (≥ 1).',
+                'example' => 3,
+            ],
+        ];
+    }
+
+    /**
      * @return array<string, array<int, ValidationRule|string>>
      */
     public function rules(): array

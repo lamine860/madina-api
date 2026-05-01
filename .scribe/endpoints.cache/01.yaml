@@ -74,16 +74,16 @@ endpoints:
       product_variant_id:
         custom: []
         name: product_variant_id
-        description: 'The <code>id</code> of an existing record in the product_variants table.'
+        description: 'Identifiant de la variante produit à enregistrer en favori. The <code>id</code> of an existing record in the product_variants table.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      product_variant_id: 16
+      product_variant_id: 1
     fileParameters: []
     responses: []
     responseFields: []

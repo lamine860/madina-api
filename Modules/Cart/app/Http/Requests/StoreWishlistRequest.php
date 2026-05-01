@@ -17,6 +17,21 @@ final class StoreWishlistRequest extends FormRequest
     }
 
     /**
+     * Métadonnées Scribe pour l’ajout à la liste de souhaits.
+     *
+     * @return array<string, array{description?: string, example?: int}>
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'product_variant_id' => [
+                'description' => 'Identifiant de la variante produit à enregistrer en favori.',
+                'example' => 1,
+            ],
+        ];
+    }
+
+    /**
      * @return array<string, array<int, ValidationRule|string>>
      */
     public function rules(): array

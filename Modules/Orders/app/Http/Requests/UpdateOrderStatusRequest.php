@@ -17,6 +17,21 @@ final class UpdateOrderStatusRequest extends FormRequest
     }
 
     /**
+     * Métadonnées Scribe pour le corps (statut de commande).
+     *
+     * @return array<string, array{description?: string, example?: string}>
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'status' => [
+                'description' => 'Nouveau statut : pending, paid, processing, shipped, cancelled, refunded.',
+                'example' => 'paid',
+            ],
+        ];
+    }
+
+    /**
      * @return array<string, array<int, ValidationRule|string>>
      */
     public function rules(): array

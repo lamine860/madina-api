@@ -16,6 +16,21 @@ final class InitiateLengoPayPaymentRequest extends FormRequest
     }
 
     /**
+     * Métadonnées Scribe pour l’initiation LengoPay.
+     *
+     * @return array<string, array{description?: string, example?: string}>
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'payment_method' => [
+                'description' => 'Canal de paiement : orange, moov ou card.',
+                'example' => 'orange',
+            ],
+        ];
+    }
+
+    /**
      * @return array<string, array<int, mixed>>
      */
     public function rules(): array

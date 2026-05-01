@@ -17,6 +17,25 @@ final class StoreCartItemRequest extends FormRequest
     }
 
     /**
+     * Métadonnées Scribe pour l’ajout au panier.
+     *
+     * @return array<string, array{description?: string, example?: int}>
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'product_variant_id' => [
+                'description' => 'Identifiant de la variante produit à ajouter au panier.',
+                'example' => 1,
+            ],
+            'quantity' => [
+                'description' => 'Quantité souhaitée (≥ 1).',
+                'example' => 2,
+            ],
+        ];
+    }
+
+    /**
      * @return array<string, array<int, ValidationRule|string>>
      */
     public function rules(): array

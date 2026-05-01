@@ -142,9 +142,9 @@ endpoints:
       shipping_address.line1:
         custom: []
         name: shipping_address.line1
-        description: 'Must not be greater than 255 characters.'
+        description: 'Ligne d’adresse (rue, numéro). Must not be greater than 255 characters.'
         required: true
-        example: b
+        example: '12 avenue de la République'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -153,9 +153,9 @@ endpoints:
       shipping_address.city:
         custom: []
         name: shipping_address.city
-        description: 'Must not be greater than 120 characters.'
+        description: 'Ville de livraison. Must not be greater than 120 characters.'
         required: true
-        example: 'n'
+        example: Conakry
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -164,9 +164,9 @@ endpoints:
       shipping_address.postal_code:
         custom: []
         name: shipping_address.postal_code
-        description: 'Must not be greater than 32 characters.'
+        description: 'Code postal ou équivalent. Must not be greater than 32 characters.'
         required: true
-        example: g
+        example: 'BP 1234'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -175,9 +175,9 @@ endpoints:
       shipping_address.country:
         custom: []
         name: shipping_address.country
-        description: 'Must be 2 characters.'
+        description: 'Code pays ISO 3166-1 alpha-2. Must be 2 characters.'
         required: true
-        example: zm
+        example: GN
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -186,9 +186,13 @@ endpoints:
       billing_address:
         custom: []
         name: billing_address
-        description: ''
+        description: 'Adresse de facturation (optionnelle). Même structure que shipping_address si fournie.'
         required: false
-        example: null
+        example:
+          line1: '12 avenue de la République'
+          city: Conakry
+          postal_code: 'BP 1234'
+          country: GN
         type: object
         enumValues: []
         exampleWasSpecified: false
@@ -197,9 +201,9 @@ endpoints:
       notes:
         custom: []
         name: notes
-        description: 'Must not be greater than 5000 characters.'
+        description: 'Message libre pour le vendeur (optionnel). Must not be greater than 5000 characters.'
         required: false
-        example: i
+        example: 'Livrer avant 18h si possible.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -207,11 +211,16 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       shipping_address:
-        line1: b
-        city: 'n'
-        postal_code: g
-        country: zm
-      notes: i
+        line1: '12 avenue de la République'
+        city: Conakry
+        postal_code: 'BP 1234'
+        country: GN
+      billing_address:
+        line1: '12 avenue de la République'
+        city: Conakry
+        postal_code: 'BP 1234'
+        country: GN
+      notes: 'Livrer avant 18h si possible.'
     fileParameters: []
     responses: []
     responseFields: []
@@ -261,9 +270,9 @@ endpoints:
       status:
         custom: []
         name: status
-        description: ''
+        description: 'Nouveau statut : pending, paid, processing, shipped, cancelled, refunded.'
         required: true
-        example: architecto
+        example: paid
         type: string
         enumValues:
           - pending
@@ -276,7 +285,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      status: architecto
+      status: paid
     fileParameters: []
     responses: []
     responseFields: []
