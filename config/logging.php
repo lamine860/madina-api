@@ -123,6 +123,14 @@ return [
             'handler' => NullHandler::class,
         ],
 
+        'payments' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/payments.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => env('LOG_PAYMENTS_DAILY_DAYS', 30),
+            'replace_placeholders' => true,
+        ],
+
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],

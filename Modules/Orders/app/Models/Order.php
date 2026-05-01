@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Core\Models\User;
 use Modules\Orders\Enums\OrderStatus;
+use Modules\Payments\Models\Payment;
 
 #[Fillable([
     'order_number',
@@ -36,6 +37,16 @@ class Order extends Model
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    /**
+     * Historique des tentatives de paiement (LengoPay, etc.).
+     *
+     * @return HasMany<Payment, $this>
+     */
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
     }
 
     /**
