@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/payouts",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Payouts\\": "app/",
+            "Modules\\Payouts\\Database\\Factories\\": "database/factories/",
+            "Modules\\Payouts\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Payouts\\Tests\\": "tests/"
+        }
+    }
+}

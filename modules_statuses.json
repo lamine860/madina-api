@@ -4,5 +4,7 @@
     "Catalog": true,
     "Cart": true,
     "Orders": true,
-    "Payments": true
+    "Payments": true,
+    "Shipping": true,
+    "Payouts": true
 }
