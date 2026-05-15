@@ -26,8 +26,8 @@ function userWithSanctumToken(): array
 
 it('returns a shop by slug without authentication', function () {
     $shop = Shop::factory()->create([
-        'slug' => 'madina-tech-store',
-        'name' => 'Madina Tech Store',
+        'slug' => 'kilora-tech-store',
+        'name' => 'Kilora Tech Store',
     ]);
 
     $this->getJson(SHOPS_BASE_URI.'/'.$shop->slug, [
@@ -35,8 +35,8 @@ it('returns a shop by slug without authentication', function () {
     ])
         ->assertSuccessful()
         ->assertJsonPath('shop.id', $shop->id)
-        ->assertJsonPath('shop.slug', 'madina-tech-store')
-        ->assertJsonPath('shop.name', 'Madina Tech Store')
+        ->assertJsonPath('shop.slug', 'kilora-tech-store')
+        ->assertJsonPath('shop.name', 'Kilora Tech Store')
         ->assertJsonStructure([
             'shop' => [
                 'id',

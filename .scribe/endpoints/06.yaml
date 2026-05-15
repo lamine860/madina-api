@@ -30,7 +30,7 @@ endpoints:
         name: name
         description: 'Le nom public de la boutique. Must not be greater than 255 characters.'
         required: true
-        example: 'Madina Tech Store'
+        example: 'Kilora Tech Store'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -63,7 +63,7 @@ endpoints:
         name: company_name
         description: "Le nom légal de l'entreprise. Must not be greater than 255 characters."
         required: false
-        example: 'Madina SARL'
+        example: 'Kilora SARL'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -92,10 +92,10 @@ endpoints:
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: 'Madina Tech Store'
+      name: 'Kilora Tech Store'
       slug: b
       description: 'Vente de matériel informatique et accessoires.'
-      company_name: 'Madina SARL'
+      company_name: 'Kilora SARL'
       vat_number: RC-CON-2024-B-1234
     fileParameters:
       logo: null
@@ -149,7 +149,7 @@ endpoints:
         name: name
         description: 'Le nom public de la boutique. Must not be greater than 255 characters.'
         required: false
-        example: 'Madina Tech Store'
+        example: 'Kilora Tech Store'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -182,7 +182,7 @@ endpoints:
         name: company_name
         description: "Le nom légal de l'entreprise. Must not be greater than 255 characters."
         required: false
-        example: 'Madina SARL'
+        example: 'Kilora SARL'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -211,10 +211,10 @@ endpoints:
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: 'Madina Tech Store'
+      name: 'Kilora Tech Store'
       slug: b
       description: 'Vente de matériel informatique et accessoires.'
-      company_name: 'Madina SARL'
+      company_name: 'Kilora SARL'
       vat_number: RC-CON-2024-B-1234
     fileParameters:
       logo: null

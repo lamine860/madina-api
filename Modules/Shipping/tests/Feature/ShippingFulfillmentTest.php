@@ -65,10 +65,10 @@ it('returns shipping options for Zone A and Zone B neighborhoods', function (): 
         ->assertSuccessful()
         ->assertJsonPath('zone', 'Zone A');
 
-    $flashMadina = collect($this->getJson(SHIPPING_OPTIONS_URL.'?neighborhood_slug=madina')->json('options'))
+    $flashZoneA = collect($this->getJson(SHIPPING_OPTIONS_URL.'?neighborhood_slug=madina')->json('options'))
         ->firstWhere('code', 'FLASH');
-    expect($flashMadina['eta_min_minutes'])->toBe(90)
-        ->and($flashMadina['eta_max_minutes'])->toBe(150);
+    expect($flashZoneA['eta_min_minutes'])->toBe(90)
+        ->and($flashZoneA['eta_max_minutes'])->toBe(150);
 
     $flashKoloma = collect($this->getJson(SHIPPING_OPTIONS_URL.'?neighborhood_slug=koloma')->json('options'))
         ->firstWhere('code', 'FLASH');

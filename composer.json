@@ -1,11 +1,12 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "kilora/api",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "Kilora — API marketplace Laravel (modules nwidart).",
     "keywords": [
+        "kilora",
         "laravel",
-        "framework"
+        "api"
     ],
     "license": "MIT",
     "require": {

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Madina API API Documentation</title>
+    <title>Kilora API Documentation</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
@@ -995,10 +995,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "name=Madina Tech Store"\
+    --form "name=Kilora Tech Store"\
     --form "slug=b"\
     --form "description=Vente de matériel informatique et accessoires."\
-    --form "company_name=Madina SARL"\
+    --form "company_name=Kilora SARL"\
     --form "vat_number=RC-CON-2024-B-1234"\
     --form "logo=@/tmp/phpmri8tilk7p73fDDmaCe" </code></pre></div>
 
@@ -1015,10 +1015,10 @@ const headers = {
 };
 
 const body = new FormData();
-body.append('name', 'Madina Tech Store');
+body.append('name', 'Kilora Tech Store');
 body.append('slug', 'b');
 body.append('description', 'Vente de matériel informatique et accessoires.');
-body.append('company_name', 'Madina SARL');
+body.append('company_name', 'Kilora SARL');
 body.append('vat_number', 'RC-CON-2024-B-1234');
 body.append('logo', document.querySelector('input[name="logo"]').files[0]);
 
@@ -1123,10 +1123,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="POSTapi-v1-shops"
-               value="Madina Tech Store"
+               value="Kilora Tech Store"
                data-component="body">
     <br>
-<p>Le nom public de la boutique. Must not be greater than 255 characters. Example: <code>Madina Tech Store</code></p>
+<p>Le nom public de la boutique. Must not be greater than 255 characters. Example: <code>Kilora Tech Store</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>slug</code></b>&nbsp;&nbsp;
@@ -1159,10 +1159,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="company_name"                data-endpoint="POSTapi-v1-shops"
-               value="Madina SARL"
+               value="Kilora SARL"
                data-component="body">
     <br>
-<p>Le nom légal de l'entreprise. Must not be greater than 255 characters. Example: <code>Madina SARL</code></p>
+<p>Le nom légal de l'entreprise. Must not be greater than 255 characters. Example: <code>Kilora SARL</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>vat_number</code></b>&nbsp;&nbsp;
@@ -1209,10 +1209,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "name=Madina Tech Store"\
+    --form "name=Kilora Tech Store"\
     --form "slug=b"\
     --form "description=Vente de matériel informatique et accessoires."\
-    --form "company_name=Madina SARL"\
+    --form "company_name=Kilora SARL"\
     --form "vat_number=RC-CON-2024-B-1234"\
     --form "logo=@/tmp/phpg08e1sk4u2va8igDlHe" </code></pre></div>
 
@@ -1229,10 +1229,10 @@ const headers = {
 };
 
 const body = new FormData();
-body.append('name', 'Madina Tech Store');
+body.append('name', 'Kilora Tech Store');
 body.append('slug', 'b');
 body.append('description', 'Vente de matériel informatique et accessoires.');
-body.append('company_name', 'Madina SARL');
+body.append('company_name', 'Kilora SARL');
 body.append('vat_number', 'RC-CON-2024-B-1234');
 body.append('logo', document.querySelector('input[name="logo"]').files[0]);
 
@@ -1350,10 +1350,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="PUTapi-v1-shops--id-"
-               value="Madina Tech Store"
+               value="Kilora Tech Store"
                data-component="body">
     <br>
-<p>Le nom public de la boutique. Must not be greater than 255 characters. Example: <code>Madina Tech Store</code></p>
+<p>Le nom public de la boutique. Must not be greater than 255 characters. Example: <code>Kilora Tech Store</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>slug</code></b>&nbsp;&nbsp;
@@ -1386,10 +1386,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="company_name"                data-endpoint="PUTapi-v1-shops--id-"
-               value="Madina SARL"
+               value="Kilora SARL"
                data-component="body">
     <br>
-<p>Le nom légal de l'entreprise. Must not be greater than 255 characters. Example: <code>Madina SARL</code></p>
+<p>Le nom légal de l'entreprise. Must not be greater than 255 characters. Example: <code>Kilora SARL</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>vat_number</code></b>&nbsp;&nbsp;

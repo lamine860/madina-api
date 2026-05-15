@@ -24,7 +24,7 @@ final class UpdateShopRequest extends FormRequest
         return [
             'name' => [
                 'description' => 'Le nom public de la boutique.',
-                'example' => 'Madina Tech Store',
+                'example' => 'Kilora Tech Store',
             ],
             'description' => [
                 'description' => 'Une brève description de ce que propose la boutique.',
@@ -32,7 +32,7 @@ final class UpdateShopRequest extends FormRequest
             ],
             'company_name' => [
                 'description' => 'Le nom légal de l\'entreprise.',
-                'example' => 'Madina SARL',
+                'example' => 'Kilora SARL',
             ],
             'vat_number' => [
                 'description' => 'Le numéro NINEA ou Registre du commerce.',
