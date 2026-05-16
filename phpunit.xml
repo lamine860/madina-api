@@ -16,6 +16,8 @@
             <directory>Modules/Cart/tests/Feature</directory>
             <directory>Modules/Orders/tests/Feature</directory>
             <directory>Modules/Payments/tests/Feature</directory>
+            <directory>Modules/Shipping/tests/Feature</directory>
+            <directory>Modules/Payouts/tests/Feature</directory>
         </testsuite>
     </testsuites>
     <source>

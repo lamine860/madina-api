@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+require_once __DIR__.'/Support/shipping_test_helpers.php';
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -45,6 +47,10 @@ pest()->extend(TestCase::class)
 pest()->extend(TestCase::class)
     ->use(RefreshDatabase::class)
     ->in('../Modules/Shipping/tests/Feature');
+
+pest()->extend(TestCase::class)
+    ->use(RefreshDatabase::class)
+    ->in('../Modules/Payouts/tests/Feature');
 
 /*
 |--------------------------------------------------------------------------

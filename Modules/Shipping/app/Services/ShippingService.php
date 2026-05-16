@@ -138,11 +138,11 @@ final class ShippingService
                 ->lockForUpdate()
                 ->firstOrFail();
 
-            $this->assertOrderPaidForLogistics($order);
-
             if ($shipment->status === ShipmentStatus::PickedUp) {
                 return $shipment;
             }
+
+            $this->assertOrderPaidForLogistics($order);
 
             if ($shipment->delivery_mode === DeliveryMode::ShopSelfDelivery) {
                 throw ValidationException::withMessages([
@@ -187,11 +187,11 @@ final class ShippingService
                 ->lockForUpdate()
                 ->firstOrFail();
 
-            $this->assertOrderPaidForLogistics($order);
-
             if ($shipment->status === ShipmentStatus::Delivered) {
                 return $shipment;
             }
+
+            $this->assertOrderPaidForLogistics($order);
 
             if ($shipment->status === ShipmentStatus::Cancelled) {
                 throw ValidationException::withMessages([

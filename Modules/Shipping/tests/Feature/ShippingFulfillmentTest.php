@@ -2,9 +2,6 @@
 
 declare(strict_types=1);
 
-use Modules\Catalog\Models\Category;
-use Modules\Catalog\Models\Product;
-use Modules\Catalog\Models\ProductVariant;
 use Modules\Core\Enums\UserRole;
 use Modules\Core\Models\User;
 use Modules\Orders\Enums\OrderStatus;
@@ -20,42 +17,6 @@ use Modules\Shipping\Enums\ShipmentStatus;
 use Modules\Shipping\Models\DeliveryProvider;
 use Modules\Shipping\Models\Shipment;
 use Modules\Shipping\Models\ShippingRate;
-use Modules\Shop\Models\Shop;
-
-const SHIPPING_OPTIONS_URL = '/api/v1/shipping/options';
-const SHIPMENTS_VERIFY_PICKUP_URL = '/api/v1/shipments/verify-pickup';
-const SHIPMENTS_VERIFY_DELIVERY_URL = '/api/v1/shipments/verify-delivery';
-
-/**
- * @return array{shop: Shop, variant: ProductVariant, seller: User}
- */
-function createSellerShopVariant(string $price = '10.00'): array
-{
-    $seller = User::factory()->create(['role' => UserRole::Seller]);
-    $shop = Shop::factory()->create(['user_id' => $seller->id]);
-    $category = Category::query()->create([
-        'name' => 'Cat',
-        'slug' => 'cat-'.uniqid(),
-        'parent_id' => null,
-    ]);
-    $product = Product::query()->create([
-        'shop_id' => $shop->id,
-        'category_id' => $category->id,
-        'name' => 'P',
-        'slug' => 'p-'.uniqid(),
-        'base_price' => 10,
-        'is_active' => true,
-    ]);
-    $variant = ProductVariant::query()->create([
-        'product_id' => $product->id,
-        'sku' => 'SKU-'.uniqid(),
-        'price' => $price,
-        'stock_qty' => 10,
-        'attributes' => [],
-    ]);
-
-    return ['shop' => $shop, 'variant' => $variant, 'seller' => $seller];
-}
 
 it('returns shipping options for Zone A and Zone B neighborhoods', function (): void {
     $user = User::factory()->create(['role' => UserRole::Customer]);
