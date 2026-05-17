@@ -72,6 +72,32 @@ final class ShopController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le détail public d’une boutique par son slug (sans authentification).
+     *
+     * @group Boutique
+     *
+     * @subgroup Consultation
+     *
+     * @urlParam shop string required Slug unique de la boutique. Example: kilora-tech-store
+     *
+     * @response 200 {
+     *   "shop": {
+     *     "id": 1,
+     *     "user_id": 2,
+     *     "name": "Kilora Tech Store",
+     *     "slug": "kilora-tech-store",
+     *     "description": "Vente de matériel informatique et accessoires.",
+     *     "logo_url": "https://cdn.example.com/shops/1/logo.png",
+     *     "company_name": "Kilora SARL",
+     *     "vat_number": "RC-CON-2024-B-1234",
+     *     "is_verified": true,
+     *     "created_at": "2026-05-17T10:00:00+00:00",
+     *     "updated_at": "2026-05-17T10:00:00+00:00"
+     *   }
+     * }
+     * @response 404 scenario="Boutique introuvable"
+     */
     public function show(Shop $shop): JsonResponse
     {
         return response()->json([

@@ -24,7 +24,7 @@ final class InitiateLengoPayPaymentRequest extends FormRequest
     {
         return [
             'payment_method' => [
-                'description' => 'Canal de paiement : orange, moov ou card.',
+                'description' => 'Canal de paiement LengoPay : orange, moov, card, kulu ou wave.',
                 'example' => 'orange',
             ],
         ];

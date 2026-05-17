@@ -24,6 +24,28 @@ final class PaymentController extends Controller
         private readonly LengoPayService $lengoPayService,
     ) {}
 
+    /**
+     * Crée un paiement LengoPay en attente pour une commande et retourne l’URL de redirection vers la page de paiement.
+     *
+     * La commande doit être au statut `pending`. L’utilisateur authentifié doit avoir le droit `view` sur la commande
+     * (acheteur propriétaire, vendeur concerné ou administrateur).
+     *
+     * @group Paiements
+     *
+     * @subgroup LengoPay
+     *
+     * @authenticated
+     *
+     * @urlParam order integer required Identifiant de la commande. Example: 42
+     *
+     * @response 200 {
+     *   "redirect_url": "https://checkout.lengopay.example/pay/abc123"
+     * }
+     * @response 422 scenario="Commande non éligible ou erreur LengoPay" {
+     *   "message": "Seules les commandes en attente de paiement peuvent être initiées."
+     * }
+     * @response 403 scenario="Accès refusé à la commande"
+     */
     public function initiate(InitiateLengoPayPaymentRequest $request, Order $order): JsonResponse
     {
         $this->authorize('view', $order);
@@ -41,6 +63,37 @@ final class PaymentController extends Controller
         ]);
     }
 
+    /**
+     * Webhook serveur-à-serveur appelé par LengoPay après un changement de statut de paiement.
+     *
+     * Ne pas appeler depuis le client mobile : aucune authentification Bearer. La requête doit contenir le corps JSON brut
+     * signé par HMAC-SHA256 avec le secret webhook (`LENGOPAY_WEBHOOK_SECRET`). Le nom d’en-tête est configurable via
+     * `LENGOPAY_WEBHOOK_SIGNATURE_HEADER` (défaut : `X-Lengopay-Signature`).
+     *
+     * Traitement idempotent : les replays avec le même `transaction_id` ne déclenchent pas deux fois la confirmation.
+     *
+     * @group Paiements
+     *
+     * @subgroup Webhook LengoPay
+     *
+     * @unauthenticated
+     *
+     * @header X-Lengopay-Signature required Signature HMAC-SHA256 du corps brut JSON (hex). Example: a1b2c3d4e5f6...
+     *
+     * @bodyParam order_number string required Numéro de commande Kilora (`orders.order_number`). Example: ORD-663f1a2b3c4d5
+     * @bodyParam transaction_id string required Identifiant de transaction LengoPay. Example: lp-tx-9f8e7d6c
+     * @bodyParam status string required Statut côté fournisseur : success, completed, paid, failed, cancelled, etc. Example: success
+     *
+     * @response 200 {
+     *   "received": true
+     * }
+     * @response 401 scenario="Signature manquante ou invalide" {
+     *   "message": "Signature webhook invalide."
+     * }
+     * @response 422 scenario="JSON ou payload invalide" {
+     *   "message": "Payload webhook incomplet."
+     * }
+     */
     public function handleWebhook(Request $request): JsonResponse
     {
         try {

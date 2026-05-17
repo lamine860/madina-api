@@ -110,7 +110,15 @@
                     <a href="#boutique">Boutique</a>
                 </li>
                                     <ul id="tocify-subheader-boutique" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="boutique-creation">
+                                                    <li class="tocify-item level-2" data-unique="boutique-consultation">
+                                <a href="#boutique-consultation">Consultation</a>
+                            </li>
+                                                            <ul id="tocify-subheader-boutique-consultation" class="tocify-subheader">
+                                                                            <li class="tocify-item level-3" data-unique="boutique-GETapi-v1-shops--slug-">
+                                            <a href="#boutique-GETapi-v1-shops--slug-">Affiche le détail public d’une boutique par son slug (sans authentification).</a>
+                                        </li>
+                                                                    </ul>
+                                                                                <li class="tocify-item level-2" data-unique="boutique-creation">
                                 <a href="#boutique-creation">Création</a>
                             </li>
                                                             <ul id="tocify-subheader-boutique-creation" class="tocify-subheader">
@@ -319,20 +327,27 @@ Affiche une catégorie avec son fil d’Ariane (racine → … → catégorie co
                                                                     </ul>
                                                                         </ul>
                             </ul>
-                    <ul id="tocify-header-endpoints" class="tocify-header">
-                <li class="tocify-item level-1" data-unique="endpoints">
-                    <a href="#endpoints">Endpoints</a>
+                    <ul id="tocify-header-paiements" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="paiements">
+                    <a href="#paiements">Paiements</a>
                 </li>
-                                    <ul id="tocify-subheader-endpoints" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="endpoints-POSTapi-v1-payments-lengopay-webhook">
-                                <a href="#endpoints-POSTapi-v1-payments-lengopay-webhook">POST api/v1/payments/lengopay/webhook</a>
+                                    <ul id="tocify-subheader-paiements" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="paiements-webhook-lengopay">
+                                <a href="#paiements-webhook-lengopay">Webhook LengoPay</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-v1-orders--order_id--payments-lengopay-initiate">
-                                <a href="#endpoints-POSTapi-v1-orders--order_id--payments-lengopay-initiate">POST api/v1/orders/{order_id}/payments/lengopay/initiate</a>
+                                                            <ul id="tocify-subheader-paiements-webhook-lengopay" class="tocify-subheader">
+                                                                            <li class="tocify-item level-3" data-unique="paiements-POSTapi-v1-payments-lengopay-webhook">
+                                            <a href="#paiements-POSTapi-v1-payments-lengopay-webhook">Webhook serveur-à-serveur appelé par LengoPay après un changement de statut de paiement.</a>
+                                        </li>
+                                                                    </ul>
+                                                                                <li class="tocify-item level-2" data-unique="paiements-lengopay">
+                                <a href="#paiements-lengopay">LengoPay</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-v1-shops--slug-">
-                                <a href="#endpoints-GETapi-v1-shops--slug-">GET api/v1/shops/{slug}</a>
-                            </li>
+                                                            <ul id="tocify-subheader-paiements-lengopay" class="tocify-subheader">
+                                                                            <li class="tocify-item level-3" data-unique="paiements-POSTapi-v1-orders--order_id--payments-lengopay-initiate">
+                                            <a href="#paiements-POSTapi-v1-orders--order_id--payments-lengopay-initiate">Crée un paiement LengoPay en attente pour une commande et retourne l’URL de redirection vers la page de paiement.</a>
+                                        </li>
+                                                                    </ul>
                                                                         </ul>
                             </ul>
             </div>
@@ -993,7 +1008,172 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
     
 
-                        <h2 id="boutique-creation">Création</h2>
+                        <h2 id="boutique-consultation">Consultation</h2>
+                                                    <h2 id="boutique-GETapi-v1-shops--slug-">Affiche le détail public d’une boutique par son slug (sans authentification).</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-v1-shops--slug-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost:8000/api/v1/shops/architecto" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/api/v1/shops/architecto"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-shops--slug-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;shop&quot;: {
+        &quot;id&quot;: 1,
+        &quot;user_id&quot;: 2,
+        &quot;name&quot;: &quot;Kilora Tech Store&quot;,
+        &quot;slug&quot;: &quot;kilora-tech-store&quot;,
+        &quot;description&quot;: &quot;Vente de mat&eacute;riel informatique et accessoires.&quot;,
+        &quot;logo_url&quot;: &quot;https://cdn.example.com/shops/1/logo.png&quot;,
+        &quot;company_name&quot;: &quot;Kilora SARL&quot;,
+        &quot;vat_number&quot;: &quot;RC-CON-2024-B-1234&quot;,
+        &quot;is_verified&quot;: true,
+        &quot;created_at&quot;: &quot;2026-05-17T10:00:00+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-05-17T10:00:00+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Boutique introuvable):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;"></code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-shops--slug-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-shops--slug-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-shops--slug-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-shops--slug-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-shops--slug-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-shops--slug-" data-method="GET"
+      data-path="api/v1/shops/{slug}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-shops--slug-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-shops--slug-"
+                    onclick="tryItOut('GETapi-v1-shops--slug-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-shops--slug-"
+                    onclick="cancelTryOut('GETapi-v1-shops--slug-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-shops--slug-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/shops/{slug}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-shops--slug-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-shops--slug-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>slug</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="slug"                data-endpoint="GETapi-v1-shops--slug-"
+               value="architecto"
+               data-component="url">
+    <br>
+<p>The slug of the shop. Example: <code>architecto</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>shop</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="shop"                data-endpoint="GETapi-v1-shops--slug-"
+               value="kilora-tech-store"
+               data-component="url">
+    <br>
+<p>Slug unique de la boutique. Example: <code>kilora-tech-store</code></p>
+            </div>
+                    </form>
+
+                                <h2 id="boutique-creation">Création</h2>
                                                     <h2 id="boutique-POSTapi-v1-shops">POST api/v1/shops</h2>
 
 <p>
@@ -1017,7 +1197,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "description=Vente de matériel informatique et accessoires."\
     --form "company_name=Kilora SARL"\
     --form "vat_number=RC-CON-2024-B-1234"\
-    --form "logo=@/tmp/php3j4g3do09l09aohhlGN" </code></pre></div>
+    --form "logo=@/tmp/phpen731q5obo6iaLfbeKc" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -1203,7 +1383,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/php3j4g3do09l09aohhlGN</code></p>
+<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpen731q5obo6iaLfbeKc</code></p>
         </div>
         </form>
 
@@ -1231,7 +1411,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "description=Vente de matériel informatique et accessoires."\
     --form "company_name=Kilora SARL"\
     --form "vat_number=RC-CON-2024-B-1234"\
-    --form "logo=@/tmp/php4tbvrlcem8tsclHpEMN" </code></pre></div>
+    --form "logo=@/tmp/phppkht6o73gbqp2NKOhbc" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -1430,7 +1610,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/php4tbvrlcem8tsclHpEMN</code></p>
+<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phppkht6o73gbqp2NKOhbc</code></p>
         </div>
         </form>
 
@@ -6537,16 +6717,20 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
-                <h1 id="endpoints">Endpoints</h1>
+                <h1 id="paiements">Paiements</h1>
 
     
 
-                                <h2 id="endpoints-POSTapi-v1-payments-lengopay-webhook">POST api/v1/payments/lengopay/webhook</h2>
+                        <h2 id="paiements-webhook-lengopay">Webhook LengoPay</h2>
+                                                    <h2 id="paiements-POSTapi-v1-payments-lengopay-webhook">Webhook serveur-à-serveur appelé par LengoPay après un changement de statut de paiement.</h2>
 
 <p>
 </p>
 
-
+<p>Ne pas appeler depuis le client mobile : aucune authentification Bearer. La requête doit contenir le corps JSON brut
+signé par HMAC-SHA256 avec le secret webhook (<code>LENGOPAY_WEBHOOK_SECRET</code>). Le nom d’en-tête est configurable via
+<code>LENGOPAY_WEBHOOK_SIGNATURE_HEADER</code> (défaut : <code>X-Lengopay-Signature</code>).</p>
+<p>Traitement idempotent : les replays avec le même <code>transaction_id</code> ne déclenchent pas deux fois la confirmation.</p>
 
 <span id="example-requests-POSTapi-v1-payments-lengopay-webhook">
 <blockquote>Example request:</blockquote>
@@ -6555,8 +6739,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
     "http://localhost:8000/api/v1/payments/lengopay/webhook" \
+    --header "X-Lengopay-Signature: required Signature HMAC-SHA256 du corps brut JSON (hex). Example: a1b2c3d4e5f6..." \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
+    --header "Accept: application/json" \
+    --data "{
+    \"order_number\": \"ORD-663f1a2b3c4d5\",
+    \"transaction_id\": \"lp-tx-9f8e7d6c\",
+    \"status\": \"success\"
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -6565,20 +6756,54 @@ You can check the Dev Tools console for debugging information.</code></pre>
 );
 
 const headers = {
+    "X-Lengopay-Signature": "required Signature HMAC-SHA256 du corps brut JSON (hex). Example: a1b2c3d4e5f6...",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
 
+let body = {
+    "order_number": "ORD-663f1a2b3c4d5",
+    "transaction_id": "lp-tx-9f8e7d6c",
+    "status": "success"
+};
 
 fetch(url, {
     method: "POST",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
 <span id="example-responses-POSTapi-v1-payments-lengopay-webhook">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;received&quot;: true
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Signature manquante ou invalide):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Signature webhook invalide.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, JSON ou payload invalide):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Payload webhook incomplet.&quot;
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-v1-payments-lengopay-webhook" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-payments-lengopay-webhook"></span>:
@@ -6627,6 +6852,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Lengopay-Signature</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Lengopay-Signature"                data-endpoint="POSTapi-v1-payments-lengopay-webhook"
+               value="required Signature HMAC-SHA256 du corps brut JSON (hex). Example: a1b2c3d4e5f6..."
+               data-component="header">
+    <br>
+<p>Example: <code>required Signature HMAC-SHA256 du corps brut JSON (hex). Example: a1b2c3d4e5f6...</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -6650,14 +6887,54 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Example: <code>application/json</code></p>
             </div>
-                        </form>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>order_number</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="order_number"                data-endpoint="POSTapi-v1-payments-lengopay-webhook"
+               value="ORD-663f1a2b3c4d5"
+               data-component="body">
+    <br>
+<p>Numéro de commande Kilora (<code>orders.order_number</code>). Example: <code>ORD-663f1a2b3c4d5</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>transaction_id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="transaction_id"                data-endpoint="POSTapi-v1-payments-lengopay-webhook"
+               value="lp-tx-9f8e7d6c"
+               data-component="body">
+    <br>
+<p>Identifiant de transaction LengoPay. Example: <code>lp-tx-9f8e7d6c</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="POSTapi-v1-payments-lengopay-webhook"
+               value="success"
+               data-component="body">
+    <br>
+<p>Statut côté fournisseur : success, completed, paid, failed, cancelled, etc. Example: <code>success</code></p>
+        </div>
+        </form>
 
-                    <h2 id="endpoints-POSTapi-v1-orders--order_id--payments-lengopay-initiate">POST api/v1/orders/{order_id}/payments/lengopay/initiate</h2>
+                                <h2 id="paiements-lengopay">LengoPay</h2>
+                                                    <h2 id="paiements-POSTapi-v1-orders--order_id--payments-lengopay-initiate">Crée un paiement LengoPay en attente pour une commande et retourne l’URL de redirection vers la page de paiement.</h2>
 
 <p>
+<small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>La commande doit être au statut <code>pending</code>. L’utilisateur authentifié doit avoir le droit <code>view</code> sur la commande
+(acheteur propriétaire, vendeur concerné ou administrateur).</p>
 
 <span id="example-requests-POSTapi-v1-orders--order_id--payments-lengopay-initiate">
 <blockquote>Example request:</blockquote>
@@ -6666,6 +6943,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
     "http://localhost:8000/api/v1/orders/16/payments/lengopay/initiate" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -6680,6 +6958,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 );
 
 const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -6697,7 +6976,32 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-orders--order_id--payments-lengopay-initiate">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;redirect_url&quot;: &quot;https://checkout.lengopay.example/pay/abc123&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Accès refusé à la commande):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;"></code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, Commande non éligible ou erreur LengoPay):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Seules les commandes en attente de paiement peuvent &ecirc;tre initi&eacute;es.&quot;
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-v1-orders--order_id--payments-lengopay-initiate" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-orders--order_id--payments-lengopay-initiate"></span>:
@@ -6715,7 +7019,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-POSTapi-v1-orders--order_id--payments-lengopay-initiate" data-method="POST"
       data-path="api/v1/orders/{order_id}/payments/lengopay/initiate"
-      data-authed="0"
+      data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -6745,6 +7049,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <b><code>api/v1/orders/{order_id}/payments/lengopay/initiate</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-v1-orders--order_id--payments-lengopay-initiate"
+               value="Bearer {YOUR_AUTH_KEY}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_KEY}</code></p>
+            </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
@@ -6782,6 +7098,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>The ID of the order. Example: <code>16</code></p>
             </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>order</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="order"                data-endpoint="POSTapi-v1-orders--order_id--payments-lengopay-initiate"
+               value="42"
+               data-component="url">
+    <br>
+<p>Identifiant de la commande. Example: <code>42</code></p>
+            </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>payment_method</code></b>&nbsp;&nbsp;
@@ -6793,151 +7121,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="orange"
                data-component="body">
     <br>
-<p>Canal de paiement : orange, moov ou card. Example: <code>orange</code></p>
+<p>Canal de paiement LengoPay : orange, moov, card, kulu ou wave. Example: <code>orange</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>orange</code></li> <li><code>moov</code></li> <li><code>card</code></li> <li><code>kulu</code></li> <li><code>wave</code></li></ul>
         </div>
         </form>
-
-                    <h2 id="endpoints-GETapi-v1-shops--slug-">GET api/v1/shops/{slug}</h2>
-
-<p>
-</p>
-
-
-
-<span id="example-requests-GETapi-v1-shops--slug-">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/v1/shops/architecto" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/shops/architecto"
-);
-
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-GETapi-v1-shops--slug-">
-            <blockquote>
-            <p>Example response (404):</p>
-        </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;No query results for model [Modules\\Shop\\Models\\Shop] architecto&quot;
-}</code>
- </pre>
-    </span>
-<span id="execution-results-GETapi-v1-shops--slug-" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-v1-shops--slug-"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-v1-shops--slug-"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-GETapi-v1-shops--slug-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-v1-shops--slug-">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-GETapi-v1-shops--slug-" data-method="GET"
-      data-path="api/v1/shops/{slug}"
-      data-authed="0"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-shops--slug-', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-v1-shops--slug-"
-                    onclick="tryItOut('GETapi-v1-shops--slug-');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-v1-shops--slug-"
-                    onclick="cancelTryOut('GETapi-v1-shops--slug-');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-v1-shops--slug-"
-                    data-initial-text="Send Request 💥"
-                    data-loading-text="⏱ Sending..."
-                    hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/v1/shops/{slug}</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="GETapi-v1-shops--slug-"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="GETapi-v1-shops--slug-"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>slug</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="slug"                data-endpoint="GETapi-v1-shops--slug-"
-               value="architecto"
-               data-component="url">
-    <br>
-<p>The slug of the shop. Example: <code>architecto</code></p>
-            </div>
-                    </form>
 
             
 

@@ -6,6 +6,88 @@ endpoints:
   -
     custom: []
     httpMethods:
+      - GET
+    uri: 'api/v1/shops/{slug}'
+    metadata:
+      custom: []
+      groupName: Boutique
+      groupDescription: ''
+      subgroup: Consultation
+      subgroupDescription: ''
+      title: 'Affiche le détail public d’une boutique par son slug (sans authentification).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      slug:
+        custom: []
+        name: slug
+        description: 'The slug of the shop.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      shop:
+        custom: []
+        name: shop
+        description: 'Slug unique de la boutique.'
+        required: true
+        example: kilora-tech-store
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      slug: architecto
+      shop: kilora-tech-store
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+            "shop": {
+              "id": 1,
+              "user_id": 2,
+              "name": "Kilora Tech Store",
+              "slug": "kilora-tech-store",
+              "description": "Vente de matériel informatique et accessoires.",
+              "logo_url": "https://cdn.example.com/shops/1/logo.png",
+              "company_name": "Kilora SARL",
+              "vat_number": "RC-CON-2024-B-1234",
+              "is_verified": true,
+              "created_at": "2026-05-17T10:00:00+00:00",
+              "updated_at": "2026-05-17T10:00:00+00:00"
+            }
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 404
+        content: ''
+        headers: []
+        description: 'Boutique introuvable'
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
       - POST
     uri: api/v1/shops
     metadata:
