@@ -6,6 +6,9 @@ namespace Modules\Shipping\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @queryParam neighborhood_slug string Slug du quartier pour déterminer la zone et les ETA. Quartiers seedés — Zone A : `madina`, `dixinn`, `matam`, `ratoma-centre` ; Zone B : `koloma`. Example: madina
+ */
 final class ShippingOptionsRequest extends FormRequest
 {
     public function authorize(): bool

@@ -11,6 +11,18 @@ use Modules\Orders\Models\OrderItem;
 use Modules\Payouts\Enums\PayoutStatus;
 use Modules\Payouts\Models\Payout;
 
+/**
+ * Gestion des versements vendeurs par commande et boutique.
+ *
+ * Cycle de vie des statuts (`PayoutStatus`) :
+ * - `pending` : créé à la commande payée via `createPendingForShopIfMissing` (idempotent).
+ * - `ready` : déclenché par le module Livraison (`markReady`) selon le `payout_trigger` du transporteur
+ *   (pickup pour Kilora Internal, delivery pour l’auto-livraison boutique).
+ * - `paid` : versement effectué (futur endpoint admin).
+ *
+ * Commission : `config('payouts.commission_rate')` (défaut 10 %). Devise : GNF.
+ * Clé d’idempotence : `order-{order_id}-shop-{shop_id}`.
+ */
 final class PayoutService
 {
     /**

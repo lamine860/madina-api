@@ -20,6 +20,36 @@ final class ShipmentVerificationController extends Controller
         private readonly ShippingService $shippingService,
     ) {}
 
+    /**
+     * Valide le retrait d’un colis par le vendeur (code sortie) pour une expédition Kilora.
+     *
+     * Autorisation : vendeur propriétaire de la boutique de l’expédition, ou administrateur.
+     * Appel idempotent : un second appel avec le même code valide renvoie toujours 200.
+     *
+     * **Versements vendeurs** : si le transporteur a `payout_trigger = pickup` (Kilora Internal),
+     * le versement de la boutique passe de `pending` à `ready`.
+     *
+     * @group Livraison
+     *
+     * @subgroup Vérification logistique
+     *
+     * @authenticated
+     *
+     * @response 200 {
+     *   "message": "Retrait validé.",
+     *   "shipment": {
+     *     "id": 1,
+     *     "status": "picked_up"
+     *   }
+     * }
+     * @response 422 scenario="Code sortie invalide" {
+     *   "message": "Le code sortie est obligatoire pour la livraison Kilora.",
+     *   "errors": {
+     *     "exit_code": ["Code sortie invalide."]
+     *   }
+     * }
+     * @response 403 scenario="Vendeur non autorisé"
+     */
     public function verifyPickup(VerifyPickupRequest $request): JsonResponse
     {
         $data = $request->validated();
@@ -43,6 +73,37 @@ final class ShipmentVerificationController extends Controller
         ]);
     }
 
+    /**
+     * Valide la livraison finale au client via le code de confirmation.
+     *
+     * **Kilora** : le colis doit être en statut `picked_up` avant la livraison.
+     * **Auto-livraison boutique** : le pickup n’est pas requis ; seul ce endpoint libère le versement.
+     *
+     * **Versements vendeurs** : si le transporteur a `payout_trigger = delivery` (boutique),
+     * le versement passe de `pending` à `ready`. Lorsque toutes les expéditions (hors annulées)
+     * sont livrées, la commande passe en statut `shipped`.
+     *
+     * @group Livraison
+     *
+     * @subgroup Vérification logistique
+     *
+     * @authenticated
+     *
+     * @response 200 {
+     *   "message": "Livraison validée.",
+     *   "shipment": {
+     *     "id": 1,
+     *     "status": "delivered"
+     *   }
+     * }
+     * @response 422 scenario="Pickup requis (Kilora)" {
+     *   "message": "Le colis doit être retiré (pickup) avant la livraison finale.",
+     *   "errors": {
+     *     "shipment_id": ["Le colis doit être retiré (pickup) avant la livraison finale."]
+     *   }
+     * }
+     * @response 403 scenario="Vendeur non autorisé"
+     */
     public function verifyDelivery(VerifyDeliveryRequest $request): JsonResponse
     {
         $data = $request->validated();

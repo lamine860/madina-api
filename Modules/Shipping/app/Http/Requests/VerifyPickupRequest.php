@@ -6,6 +6,10 @@ namespace Modules\Shipping\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @bodyParam shipment_id integer required Identifiant de l’expédition. Example: 1
+ * @bodyParam exit_code string Code sortie (obligatoire pour Kilora, non utilisé en auto-livraison boutique). Example: ABC123
+ */
 final class VerifyPickupRequest extends FormRequest
 {
     public function authorize(): bool

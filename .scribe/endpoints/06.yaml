@@ -1,271 +1,276 @@
-name: Boutique
-description: ''
+name: Livraison
+description: |-
+  Estimation des tarifs et délais, vérification du retrait et de la livraison.
+  Les versements vendeurs (`pending` → `ready`) sont déclenchés lors des vérifications logistiques ;
+  voir aussi `PayoutService` dans le module Payouts.
 endpoints:
   -
     custom: []
     httpMethods:
-      - POST
-    uri: api/v1/shops
+      - GET
+    uri: api/v1/shipping/options
     metadata:
       custom: []
-      groupName: Boutique
-      groupDescription: ''
-      subgroup: Création
+      groupName: Livraison
+      groupDescription: |-
+        Estimation des tarifs et délais, vérification du retrait et de la livraison.
+        Les versements vendeurs (`pending` → `ready`) sont déclenchés lors des vérifications logistiques ;
+        voir aussi `PayoutService` dans le module Payouts.
+      subgroup: Estimation
       subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: multipart/form-data
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      name:
-        custom: []
-        name: name
-        description: 'Le nom public de la boutique. Must not be greater than 255 characters.'
-        required: true
-        example: 'Kilora Tech Store'
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      slug:
-        custom: []
-        name: slug
-        description: 'Must not be greater than 255 characters.'
-        required: false
-        example: b
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      description:
-        custom: []
-        name: description
-        description: 'Une brève description de ce que propose la boutique.'
-        required: false
-        example: 'Vente de matériel informatique et accessoires.'
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      company_name:
-        custom: []
-        name: company_name
-        description: "Le nom légal de l'entreprise. Must not be greater than 255 characters."
-        required: false
-        example: 'Kilora SARL'
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      vat_number:
-        custom: []
-        name: vat_number
-        description: 'Le numéro NINEA ou Registre du commerce. Must not be greater than 50 characters.'
-        required: false
-        example: RC-CON-2024-B-1234
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      logo:
-        custom: []
-        name: logo
-        description: 'Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes.'
-        required: false
-        example: null
-        type: file
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-    cleanBodyParameters:
-      name: 'Kilora Tech Store'
-      slug: b
-      description: 'Vente de matériel informatique et accessoires.'
-      company_name: 'Kilora SARL'
-      vat_number: RC-CON-2024-B-1234
-    fileParameters:
-      logo: null
-    responses: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - PUT
-    uri: 'api/v1/shops/{id}'
-    metadata:
-      custom: []
-      groupName: Boutique
-      groupDescription: ''
-      subgroup: 'Mise à jour'
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: multipart/form-data
-      Accept: application/json
-    urlParameters:
-      id:
-        custom: []
-        name: id
-        description: 'The ID of the shop.'
-        required: true
-        example: 16
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-    cleanUrlParameters:
-      id: 16
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      name:
-        custom: []
-        name: name
-        description: 'Le nom public de la boutique. Must not be greater than 255 characters.'
-        required: false
-        example: 'Kilora Tech Store'
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      slug:
-        custom: []
-        name: slug
-        description: 'Must not be greater than 255 characters.'
-        required: false
-        example: b
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      description:
-        custom: []
-        name: description
-        description: 'Une brève description de ce que propose la boutique.'
-        required: false
-        example: 'Vente de matériel informatique et accessoires.'
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      company_name:
-        custom: []
-        name: company_name
-        description: "Le nom légal de l'entreprise. Must not be greater than 255 characters."
-        required: false
-        example: 'Kilora SARL'
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      vat_number:
-        custom: []
-        name: vat_number
-        description: 'Le numéro NINEA ou Registre du commerce. Must not be greater than 50 characters.'
-        required: false
-        example: RC-CON-2024-B-1234
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      logo:
-        custom: []
-        name: logo
-        description: 'Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes.'
-        required: false
-        example: null
-        type: file
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-    cleanBodyParameters:
-      name: 'Kilora Tech Store'
-      slug: b
-      description: 'Vente de matériel informatique et accessoires.'
-      company_name: 'Kilora SARL'
-      vat_number: RC-CON-2024-B-1234
-    fileParameters:
-      logo: null
-    responses: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - DELETE
-    uri: 'api/v1/shops/{id}'
-    metadata:
-      custom: []
-      groupName: Boutique
-      groupDescription: ''
-      subgroup: Suppression
-      subgroupDescription: ''
-      title: ''
-      description: ''
+      title: 'Retourne les options de livraison Kilora (tarifs et fenêtres indicatives) pour un quartier donné.'
+      description: |-
+        Sans `neighborhood_slug`, des délais conservateurs s’appliquent pour FLASH (150–240 min).
+        Les prix proviennent des tarifs en base (`FLASH`, `DIRECT`, `ECO`).
       authenticated: true
       deprecated: false
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
-    urlParameters:
-      id:
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      neighborhood_slug:
         custom: []
-        name: id
-        description: 'The ID of the shop.'
-        required: true
-        example: 16
-        type: integer
+        name: neighborhood_slug
+        description: 'Slug du quartier pour déterminer la zone et les ETA. Quartiers seedés — Zone A : `madina`, `dixinn`, `matam`, `ratoma-centre` ; Zone B : `koloma`.'
+        required: false
+        example: madina
+        type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
-    cleanUrlParameters:
-      id: 16
+    cleanQueryParameters:
+      neighborhood_slug: madina
+    bodyParameters:
+      neighborhood_slug:
+        custom: []
+        name: neighborhood_slug
+        description: 'Must not be greater than 120 characters.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      neighborhood_slug: b
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+            "zone": "Zone A",
+            "neighborhood_slug": "madina",
+            "neighborhood_warning": null,
+            "options": [
+              {
+                "code": "FLASH",
+                "name": "Kilora Flash",
+                "price": "50000.00",
+                "eta_min_minutes": 90,
+                "eta_max_minutes": 150
+              }
+            ]
+          }
+        headers: []
+        description: 'Zone A (madina)'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/shipments/verify-pickup
+    metadata:
+      custom: []
+      groupName: Livraison
+      groupDescription: ''
+      subgroup: 'Vérification logistique'
+      subgroupDescription: ''
+      title: 'Valide le retrait d’un colis par le vendeur (code sortie) pour une expédition Kilora.'
+      description: |-
+        Autorisation : vendeur propriétaire de la boutique de l’expédition, ou administrateur.
+        Appel idempotent : un second appel avec le même code valide renvoie toujours 200.
+
+        **Versements vendeurs** : si le transporteur a `payout_trigger = pickup` (Kilora Internal),
+        le versement de la boutique passe de `pending` à `ready`.
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      shipment_id:
+        custom: []
+        name: shipment_id
+        description: 'Identifiant de l’expédition.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      exit_code:
+        custom: []
+        name: exit_code
+        description: 'Code sortie (obligatoire pour Kilora, non utilisé en auto-livraison boutique).'
+        required: false
+        example: ABC123
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      shipment_id: 1
+      exit_code: ABC123
     fileParameters: []
-    responses: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+            "message": "Retrait validé.",
+            "shipment": {
+              "id": 1,
+              "status": "picked_up"
+            }
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 403
+        content: ''
+        headers: []
+        description: 'Vendeur non autorisé'
+      -
+        custom: []
+        status: 422
+        content: |-
+          {
+            "message": "Le code sortie est obligatoire pour la livraison Kilora.",
+            "errors": {
+              "exit_code": ["Code sortie invalide."]
+            }
+          }
+        headers: []
+        description: 'Code sortie invalide'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/shipments/verify-delivery
+    metadata:
+      custom: []
+      groupName: Livraison
+      groupDescription: ''
+      subgroup: 'Vérification logistique'
+      subgroupDescription: ''
+      title: 'Valide la livraison finale au client via le code de confirmation.'
+      description: |-
+        **Kilora** : le colis doit être en statut `picked_up` avant la livraison.
+        **Auto-livraison boutique** : le pickup n’est pas requis ; seul ce endpoint libère le versement.
+
+        **Versements vendeurs** : si le transporteur a `payout_trigger = delivery` (boutique),
+        le versement passe de `pending` à `ready`. Lorsque toutes les expéditions (hors annulées)
+        sont livrées, la commande passe en statut `shipped`.
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      shipment_id:
+        custom: []
+        name: shipment_id
+        description: 'Identifiant de l’expédition.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      confirmation_code:
+        custom: []
+        name: confirmation_code
+        description: 'Code de confirmation remis au client.'
+        required: true
+        example: XYZ789
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      shipment_id: 1
+      confirmation_code: XYZ789
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+            "message": "Livraison validée.",
+            "shipment": {
+              "id": 1,
+              "status": "delivered"
+            }
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 403
+        content: ''
+        headers: []
+        description: 'Vendeur non autorisé'
+      -
+        custom: []
+        status: 422
+        content: |-
+          {
+            "message": "Le colis doit être retiré (pickup) avant la livraison finale.",
+            "errors": {
+              "shipment_id": ["Le colis doit être retiré (pickup) avant la livraison finale."]
+            }
+          }
+        headers: []
+        description: 'Pickup requis (Kilora)'
     responseFields: []
     auth:
       - headers
