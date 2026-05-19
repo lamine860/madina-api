@@ -10,3 +10,9 @@ Route::get('payments/lengopay/success', [PaymentController::class, 'success'])
 
 Route::get('payments/lengopay/cancel', [PaymentController::class, 'cancel'])
     ->name('payments.lengopay.cancel');
+
+Route::get('payments/orange/success', [PaymentController::class, 'orangeSuccess'])
+    ->name('payments.orange.success');
+
+Route::get('payments/orange/cancel', [PaymentController::class, 'orangeCancel'])
+    ->name('payments.orange.cancel');

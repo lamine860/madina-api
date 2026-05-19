@@ -8,10 +8,17 @@ use Modules\Payments\Http\Controllers\PaymentController;
 Route::prefix('v1')->group(function (): void {
     Route::post('payments/lengopay/webhook', [PaymentController::class, 'handleWebhook'])
         ->name('payments.lengopay.webhook');
+
+    Route::post('payments/orange/webhook', [PaymentController::class, 'handleOrangeWebhook'])
+        ->name('payments.orange.webhook');
 });
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function (): void {
     Route::post('orders/{order}/payments/lengopay/initiate', [PaymentController::class, 'initiate'])
         ->whereNumber('order')
         ->name('orders.payments.lengopay.initiate');
+
+    Route::post('orders/{order}/payments/orange/initiate', [PaymentController::class, 'initiateOrange'])
+        ->whereNumber('order')
+        ->name('orders.payments.orange.initiate');
 });

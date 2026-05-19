@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Payments\Providers;
 
 use Modules\Payments\Services\LengoPayService;
+use Modules\Payments\Services\OrangeMoneyService;
 use Nwidart\Modules\Support\ModuleServiceProvider;
 
 class PaymentsServiceProvider extends ModuleServiceProvider
@@ -24,6 +25,7 @@ class PaymentsServiceProvider extends ModuleServiceProvider
     public function register(): void
     {
         $this->app->singleton(LengoPayService::class);
+        $this->app->singleton(OrangeMoneyService::class);
 
         parent::register();
     }
