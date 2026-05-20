@@ -107,6 +107,103 @@ endpoints:
     custom: []
     httpMethods:
       - POST
+    uri: api/v1/payments/orange/webhook
+    metadata:
+      custom: []
+      groupName: Paiements
+      groupDescription: ''
+      subgroup: 'Webhook Orange Money'
+      subgroupDescription: ''
+      title: 'Webhook serveur-à-serveur appelé par Orange Money après un changement de statut de paiement.'
+      description: |-
+        Ne pas appeler depuis le client mobile : aucune authentification Bearer. Corps JSON signé par HMAC-SHA256
+        avec `ORANGE_WEBHOOK_SECRET`. En-tête configurable via `ORANGE_WEBHOOK_SIGNATURE_HEADER` (défaut : `X-Orange-Signature`).
+      authenticated: false
+      deprecated: false
+    headers:
+      X-Orange-Signature: 'required Signature HMAC-SHA256 du corps brut JSON (hex). Example: a1b2c3d4e5f6...'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      order_number:
+        custom: []
+        name: order_number
+        description: 'Numéro de commande Kilora.'
+        required: true
+        example: ORD-663f1a2b3c4d5
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      transaction_id:
+        custom: []
+        name: transaction_id
+        description: 'Identifiant de transaction Orange.'
+        required: true
+        example: om-tx-9f8e7d6c
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: 'Statut côté fournisseur.'
+        required: true
+        example: success
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      order_number: ORD-663f1a2b3c4d5
+      transaction_id: om-tx-9f8e7d6c
+      status: success
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+            "received": true
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 401
+        content: |-
+          {
+            "message": "Signature webhook invalide."
+          }
+        headers: []
+        description: 'Signature manquante ou invalide'
+      -
+        custom: []
+        status: 422
+        content: |-
+          {
+            "message": "Payload webhook incomplet."
+          }
+        headers: []
+        description: 'JSON ou payload invalide'
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
     uri: 'api/v1/orders/{order_id}/payments/lengopay/initiate'
     metadata:
       custom: []
@@ -197,6 +294,101 @@ endpoints:
           }
         headers: []
         description: 'Commande non éligible ou erreur LengoPay'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/v1/orders/{order_id}/payments/orange/initiate'
+    metadata:
+      custom: []
+      groupName: Paiements
+      groupDescription: ''
+      subgroup: 'Orange Money'
+      subgroupDescription: ''
+      title: 'Crée un paiement Orange Money en attente pour une commande et retourne l’URL de redirection.'
+      description: 'La commande doit être au statut `pending`. L’utilisateur authentifié doit avoir le droit `view` sur la commande.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      order_id:
+        custom: []
+        name: order_id
+        description: 'The ID of the order.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      order:
+        custom: []
+        name: order
+        description: 'Identifiant de la commande.'
+        required: true
+        example: 42
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      order_id: 16
+      order: 42
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      customer_msisdn:
+        custom: []
+        name: customer_msisdn
+        description: 'Numéro Orange Money du client au format international Guinée (224 + 9 chiffres). Must match the regex /^224\d{9}$/.'
+        required: false
+        example: '224621234567'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      customer_msisdn: '224621234567'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+            "redirect_url": "https://payment.orange.com/checkout/abc123"
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 403
+        content: ''
+        headers: []
+        description: 'Accès refusé à la commande'
+      -
+        custom: []
+        status: 422
+        content: |-
+          {
+            "message": "Seules les commandes en attente de paiement peuvent être initiées."
+          }
+        headers: []
+        description: 'Commande non éligible ou erreur Orange Money'
     responseFields: []
     auth:
       - headers

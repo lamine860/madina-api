@@ -34,30 +34,18 @@ endpoints:
       neighborhood_slug:
         custom: []
         name: neighborhood_slug
-        description: 'Slug du quartier pour déterminer la zone et les ETA. Quartiers seedés — Zone A : `madina`, `dixinn`, `matam`, `ratoma-centre` ; Zone B : `koloma`.'
+        description: 'Slug du quartier pour déterminer la zone et les ETA. Quartiers seedés — Zone A : madina, dixinn, matam, ratoma-centre ; Zone B : koloma. Must not be greater than 120 characters.'
         required: false
         example: madina
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanQueryParameters:
-      neighborhood_slug: madina
-    bodyParameters:
-      neighborhood_slug:
-        custom: []
-        name: neighborhood_slug
-        description: 'Must not be greater than 120 characters.'
-        required: false
-        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
-    cleanBodyParameters:
-      neighborhood_slug: b
+    cleanQueryParameters:
+      neighborhood_slug: madina
+    bodyParameters: []
+    cleanBodyParameters: []
     fileParameters: []
     responses:
       -
@@ -120,23 +108,23 @@ endpoints:
       shipment_id:
         custom: []
         name: shipment_id
-        description: 'Identifiant de l’expédition.'
+        description: 'Identifiant de l’expédition. The <code>id</code> of an existing record in the shipments table.'
         required: true
         example: 1
         type: integer
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: false
         deprecated: false
       exit_code:
         custom: []
         name: exit_code
-        description: 'Code sortie (obligatoire pour Kilora, non utilisé en auto-livraison boutique).'
+        description: 'Code sortie (obligatoire pour Kilora, non utilisé en auto-livraison boutique). Must not be greater than 32 characters.'
         required: false
         example: ABC123
         type: string
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
@@ -216,23 +204,23 @@ endpoints:
       shipment_id:
         custom: []
         name: shipment_id
-        description: 'Identifiant de l’expédition.'
+        description: 'Identifiant de l’expédition. The <code>id</code> of an existing record in the shipments table.'
         required: true
         example: 1
         type: integer
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: false
         deprecated: false
       confirmation_code:
         custom: []
         name: confirmation_code
-        description: 'Code de confirmation remis au client.'
+        description: 'Code de confirmation remis au client. Must not be greater than 32 characters.'
         required: true
         example: XYZ789
         type: string
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:

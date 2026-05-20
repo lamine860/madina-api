@@ -340,12 +340,28 @@ Affiche une catégorie avec son fil d’Ariane (racine → … → catégorie co
                                             <a href="#paiements-POSTapi-v1-payments-lengopay-webhook">Webhook serveur-à-serveur appelé par LengoPay après un changement de statut de paiement.</a>
                                         </li>
                                                                     </ul>
+                                                                                <li class="tocify-item level-2" data-unique="paiements-webhook-orange-money">
+                                <a href="#paiements-webhook-orange-money">Webhook Orange Money</a>
+                            </li>
+                                                            <ul id="tocify-subheader-paiements-webhook-orange-money" class="tocify-subheader">
+                                                                            <li class="tocify-item level-3" data-unique="paiements-POSTapi-v1-payments-orange-webhook">
+                                            <a href="#paiements-POSTapi-v1-payments-orange-webhook">Webhook serveur-à-serveur appelé par Orange Money après un changement de statut de paiement.</a>
+                                        </li>
+                                                                    </ul>
                                                                                 <li class="tocify-item level-2" data-unique="paiements-lengopay">
                                 <a href="#paiements-lengopay">LengoPay</a>
                             </li>
                                                             <ul id="tocify-subheader-paiements-lengopay" class="tocify-subheader">
                                                                             <li class="tocify-item level-3" data-unique="paiements-POSTapi-v1-orders--order_id--payments-lengopay-initiate">
                                             <a href="#paiements-POSTapi-v1-orders--order_id--payments-lengopay-initiate">Crée un paiement LengoPay en attente pour une commande et retourne l’URL de redirection vers la page de paiement.</a>
+                                        </li>
+                                                                    </ul>
+                                                                                <li class="tocify-item level-2" data-unique="paiements-orange-money">
+                                <a href="#paiements-orange-money">Orange Money</a>
+                            </li>
+                                                            <ul id="tocify-subheader-paiements-orange-money" class="tocify-subheader">
+                                                                            <li class="tocify-item level-3" data-unique="paiements-POSTapi-v1-orders--order_id--payments-orange-initiate">
+                                            <a href="#paiements-POSTapi-v1-orders--order_id--payments-orange-initiate">Crée un paiement Orange Money en attente pour une commande et retourne l’URL de redirection.</a>
                                         </li>
                                                                     </ul>
                                                                         </ul>
@@ -1197,7 +1213,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "description=Vente de matériel informatique et accessoires."\
     --form "company_name=Kilora SARL"\
     --form "vat_number=RC-CON-2024-B-1234"\
-    --form "logo=@/tmp/phpll49d4k2e0fe4bFAkek" </code></pre></div>
+    --form "logo=@/tmp/phppkv7jchssgi59IFbbMk" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -1383,7 +1399,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpll49d4k2e0fe4bFAkek</code></p>
+<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phppkv7jchssgi59IFbbMk</code></p>
         </div>
         </form>
 
@@ -1411,7 +1427,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "description=Vente de matériel informatique et accessoires."\
     --form "company_name=Kilora SARL"\
     --form "vat_number=RC-CON-2024-B-1234"\
-    --form "logo=@/tmp/phpcdpatljr4p3p3bPbHkk" </code></pre></div>
+    --form "logo=@/tmp/php43a3epjigdh36EnDndk" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -1610,7 +1626,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpcdpatljr4p3p3bPbHkk</code></p>
+<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/php43a3epjigdh36EnDndk</code></p>
         </div>
         </form>
 
@@ -6150,11 +6166,7 @@ Les prix proviennent des tarifs en base (<code>FLASH</code>, <code>DIRECT</code>
     --get "http://localhost:8000/api/v1/shipping/options?neighborhood_slug=madina" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json" \
-    --data "{
-    \"neighborhood_slug\": \"b\"
-}"
-</code></pre></div>
+    --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
@@ -6174,14 +6186,10 @@ const headers = {
     "Accept": "application/json",
 };
 
-let body = {
-    "neighborhood_slug": "b"
-};
 
 fetch(url, {
     method: "GET",
     headers,
-    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
@@ -6302,22 +6310,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="madina"
                data-component="query">
     <br>
-<p>Slug du quartier pour déterminer la zone et les ETA. Quartiers seedés — Zone A : <code>madina</code>, <code>dixinn</code>, <code>matam</code>, <code>ratoma-centre</code> ; Zone B : <code>koloma</code>. Example: <code>madina</code></p>
+<p>Slug du quartier pour déterminer la zone et les ETA. Quartiers seedés — Zone A : madina, dixinn, matam, ratoma-centre ; Zone B : koloma. Must not be greater than 120 characters. Example: <code>madina</code></p>
             </div>
-                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>neighborhood_slug</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="neighborhood_slug"                data-endpoint="GETapi-v1-shipping-options"
-               value="b"
-               data-component="body">
-    <br>
-<p>Must not be greater than 120 characters. Example: <code>b</code></p>
-        </div>
-        </form>
+                </form>
 
                                 <h2 id="livraison-verification-logistique">Vérification logistique</h2>
                                                     <h2 id="livraison-POSTapi-v1-shipments-verify-pickup">Valide le retrait d’un colis par le vendeur (code sortie) pour une expédition Kilora.</h2>
@@ -6502,7 +6497,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="1"
                data-component="body">
     <br>
-<p>Identifiant de l’expédition. Example: <code>1</code></p>
+<p>Identifiant de l’expédition. The <code>id</code> of an existing record in the shipments table. Example: <code>1</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>exit_code</code></b>&nbsp;&nbsp;
@@ -6514,7 +6509,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="ABC123"
                data-component="body">
     <br>
-<p>Code sortie (obligatoire pour Kilora, non utilisé en auto-livraison boutique). Example: <code>ABC123</code></p>
+<p>Code sortie (obligatoire pour Kilora, non utilisé en auto-livraison boutique). Must not be greater than 32 characters. Example: <code>ABC123</code></p>
         </div>
         </form>
 
@@ -6701,7 +6696,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="1"
                data-component="body">
     <br>
-<p>Identifiant de l’expédition. Example: <code>1</code></p>
+<p>Identifiant de l’expédition. The <code>id</code> of an existing record in the shipments table. Example: <code>1</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>confirmation_code</code></b>&nbsp;&nbsp;
@@ -6713,7 +6708,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="XYZ789"
                data-component="body">
     <br>
-<p>Code de confirmation remis au client. Example: <code>XYZ789</code></p>
+<p>Code de confirmation remis au client. Must not be greater than 32 characters. Example: <code>XYZ789</code></p>
         </div>
         </form>
 
@@ -6926,6 +6921,209 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
+                                <h2 id="paiements-webhook-orange-money">Webhook Orange Money</h2>
+                                                    <h2 id="paiements-POSTapi-v1-payments-orange-webhook">Webhook serveur-à-serveur appelé par Orange Money après un changement de statut de paiement.</h2>
+
+<p>
+</p>
+
+<p>Ne pas appeler depuis le client mobile : aucune authentification Bearer. Corps JSON signé par HMAC-SHA256
+avec <code>ORANGE_WEBHOOK_SECRET</code>. En-tête configurable via <code>ORANGE_WEBHOOK_SIGNATURE_HEADER</code> (défaut : <code>X-Orange-Signature</code>).</p>
+
+<span id="example-requests-POSTapi-v1-payments-orange-webhook">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost:8000/api/v1/payments/orange/webhook" \
+    --header "X-Orange-Signature: required Signature HMAC-SHA256 du corps brut JSON (hex). Example: a1b2c3d4e5f6..." \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"order_number\": \"ORD-663f1a2b3c4d5\",
+    \"transaction_id\": \"om-tx-9f8e7d6c\",
+    \"status\": \"success\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/api/v1/payments/orange/webhook"
+);
+
+const headers = {
+    "X-Orange-Signature": "required Signature HMAC-SHA256 du corps brut JSON (hex). Example: a1b2c3d4e5f6...",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "order_number": "ORD-663f1a2b3c4d5",
+    "transaction_id": "om-tx-9f8e7d6c",
+    "status": "success"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-payments-orange-webhook">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;received&quot;: true
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Signature manquante ou invalide):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Signature webhook invalide.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, JSON ou payload invalide):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Payload webhook incomplet.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-v1-payments-orange-webhook" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-payments-orange-webhook"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-payments-orange-webhook"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-payments-orange-webhook" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-payments-orange-webhook">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-payments-orange-webhook" data-method="POST"
+      data-path="api/v1/payments/orange/webhook"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-payments-orange-webhook', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-payments-orange-webhook"
+                    onclick="tryItOut('POSTapi-v1-payments-orange-webhook');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-payments-orange-webhook"
+                    onclick="cancelTryOut('POSTapi-v1-payments-orange-webhook');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-payments-orange-webhook"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/payments/orange/webhook</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Orange-Signature</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Orange-Signature"                data-endpoint="POSTapi-v1-payments-orange-webhook"
+               value="required Signature HMAC-SHA256 du corps brut JSON (hex). Example: a1b2c3d4e5f6..."
+               data-component="header">
+    <br>
+<p>Example: <code>required Signature HMAC-SHA256 du corps brut JSON (hex). Example: a1b2c3d4e5f6...</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-payments-orange-webhook"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-payments-orange-webhook"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>order_number</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="order_number"                data-endpoint="POSTapi-v1-payments-orange-webhook"
+               value="ORD-663f1a2b3c4d5"
+               data-component="body">
+    <br>
+<p>Numéro de commande Kilora. Example: <code>ORD-663f1a2b3c4d5</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>transaction_id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="transaction_id"                data-endpoint="POSTapi-v1-payments-orange-webhook"
+               value="om-tx-9f8e7d6c"
+               data-component="body">
+    <br>
+<p>Identifiant de transaction Orange. Example: <code>om-tx-9f8e7d6c</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="POSTapi-v1-payments-orange-webhook"
+               value="success"
+               data-component="body">
+    <br>
+<p>Statut côté fournisseur. Example: <code>success</code></p>
+        </div>
+        </form>
+
                                 <h2 id="paiements-lengopay">LengoPay</h2>
                                                     <h2 id="paiements-POSTapi-v1-orders--order_id--payments-lengopay-initiate">Crée un paiement LengoPay en attente pour une commande et retourne l’URL de redirection vers la page de paiement.</h2>
 
@@ -7124,6 +7322,204 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Canal de paiement LengoPay : orange, moov, card, kulu ou wave. Example: <code>orange</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>orange</code></li> <li><code>moov</code></li> <li><code>card</code></li> <li><code>kulu</code></li> <li><code>wave</code></li></ul>
+        </div>
+        </form>
+
+                                <h2 id="paiements-orange-money">Orange Money</h2>
+                                                    <h2 id="paiements-POSTapi-v1-orders--order_id--payments-orange-initiate">Crée un paiement Orange Money en attente pour une commande et retourne l’URL de redirection.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>La commande doit être au statut <code>pending</code>. L’utilisateur authentifié doit avoir le droit <code>view</code> sur la commande.</p>
+
+<span id="example-requests-POSTapi-v1-orders--order_id--payments-orange-initiate">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost:8000/api/v1/orders/16/payments/orange/initiate" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"customer_msisdn\": \"224621234567\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/api/v1/orders/16/payments/orange/initiate"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "customer_msisdn": "224621234567"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-orders--order_id--payments-orange-initiate">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;redirect_url&quot;: &quot;https://payment.orange.com/checkout/abc123&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Accès refusé à la commande):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;"></code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, Commande non éligible ou erreur Orange Money):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Seules les commandes en attente de paiement peuvent &ecirc;tre initi&eacute;es.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-v1-orders--order_id--payments-orange-initiate" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-orders--order_id--payments-orange-initiate"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-orders--order_id--payments-orange-initiate"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-orders--order_id--payments-orange-initiate" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-orders--order_id--payments-orange-initiate">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-orders--order_id--payments-orange-initiate" data-method="POST"
+      data-path="api/v1/orders/{order_id}/payments/orange/initiate"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-orders--order_id--payments-orange-initiate', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-orders--order_id--payments-orange-initiate"
+                    onclick="tryItOut('POSTapi-v1-orders--order_id--payments-orange-initiate');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-orders--order_id--payments-orange-initiate"
+                    onclick="cancelTryOut('POSTapi-v1-orders--order_id--payments-orange-initiate');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-orders--order_id--payments-orange-initiate"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/orders/{order_id}/payments/orange/initiate</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-v1-orders--order_id--payments-orange-initiate"
+               value="Bearer {YOUR_AUTH_KEY}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_KEY}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-orders--order_id--payments-orange-initiate"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-orders--order_id--payments-orange-initiate"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>order_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="order_id"                data-endpoint="POSTapi-v1-orders--order_id--payments-orange-initiate"
+               value="16"
+               data-component="url">
+    <br>
+<p>The ID of the order. Example: <code>16</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>order</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="order"                data-endpoint="POSTapi-v1-orders--order_id--payments-orange-initiate"
+               value="42"
+               data-component="url">
+    <br>
+<p>Identifiant de la commande. Example: <code>42</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>customer_msisdn</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="customer_msisdn"                data-endpoint="POSTapi-v1-orders--order_id--payments-orange-initiate"
+               value="224621234567"
+               data-component="body">
+    <br>
+<p>Numéro Orange Money du client au format international Guinée (224 + 9 chiffres). Must match the regex /^224\d{9}$/. Example: <code>224621234567</code></p>
         </div>
         </form>
 

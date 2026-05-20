@@ -6,15 +6,30 @@ namespace Modules\Shipping\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * @bodyParam shipment_id integer required Identifiant de l’expédition. Example: 1
- * @bodyParam confirmation_code string required Code de confirmation remis au client. Example: XYZ789
- */
 final class VerifyDeliveryRequest extends FormRequest
 {
     public function authorize(): bool
     {
         return $this->user() !== null;
+    }
+
+    /**
+     * Métadonnées Scribe pour la vérification de livraison.
+     *
+     * @return array<string, array{description?: string, example?: int|string}>
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'shipment_id' => [
+                'description' => 'Identifiant de l’expédition.',
+                'example' => 1,
+            ],
+            'confirmation_code' => [
+                'description' => 'Code de confirmation remis au client.',
+                'example' => 'XYZ789',
+            ],
+        ];
     }
 
     /**
