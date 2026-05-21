@@ -6,5 +6,6 @@
     "Orders": true,
     "Payments": true,
     "Shipping": true,
-    "Payouts": true
+    "Payouts": true,
+    "Notification": true
 }
