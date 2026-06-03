@@ -1,73 +1,121 @@
-name: Livraison
-description: |-
-  Estimation des tarifs et délais, vérification du retrait et de la livraison.
-  Les versements vendeurs (`pending` → `ready`) sont déclenchés lors des vérifications logistiques ;
-  voir aussi `PayoutService` dans le module Payouts.
+name: Avis
+description: ''
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: api/v1/shipping/options
+    uri: 'api/v1/shops/{shop_slug}/products/{product_slug}/reviews'
     metadata:
       custom: []
-      groupName: Livraison
-      groupDescription: |-
-        Estimation des tarifs et délais, vérification du retrait et de la livraison.
-        Les versements vendeurs (`pending` → `ready`) sont déclenchés lors des vérifications logistiques ;
-        voir aussi `PayoutService` dans le module Payouts.
-      subgroup: Estimation
+      groupName: Avis
+      groupDescription: ''
+      subgroup: Produits
       subgroupDescription: ''
-      title: 'Retourne les options de livraison Kilora (tarifs et fenêtres indicatives) pour un quartier donné.'
-      description: |-
-        Sans `neighborhood_slug`, des délais conservateurs s’appliquent pour FLASH (150–240 min).
-        Les prix proviennent des tarifs en base (`FLASH`, `DIRECT`, `ECO`).
-      authenticated: true
+      title: 'Liste paginée des avis publiés d’un produit.'
+      description: ''
+      authenticated: false
       deprecated: false
     headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters:
-      neighborhood_slug:
+    urlParameters:
+      shop_slug:
         custom: []
-        name: neighborhood_slug
-        description: 'Slug du quartier pour déterminer la zone et les ETA. Quartiers seedés — Zone A : madina, dixinn, matam, ratoma-centre ; Zone B : koloma. Must not be greater than 120 characters.'
-        required: false
-        example: madina
+        name: shop_slug
+        description: 'The slug of the shop.'
+        required: true
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
-        nullable: true
+        nullable: false
         deprecated: false
-    cleanQueryParameters:
-      neighborhood_slug: madina
+      product_slug:
+        custom: []
+        name: product_slug
+        description: 'The slug of the product.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      shop_slug: architecto
+      product_slug: architecto
+    queryParameters: []
+    cleanQueryParameters: []
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
     responses:
       -
         custom: []
-        status: 200
+        status: 404
         content: |-
           {
-            "zone": "Zone A",
-            "neighborhood_slug": "madina",
-            "neighborhood_warning": null,
-            "options": [
-              {
-                "code": "FLASH",
-                "name": "Kilora Flash",
-                "price": "50000.00",
-                "eta_min_minutes": 90,
-                "eta_max_minutes": 150
-              }
-            ]
+              "message": "No query results for model [Modules\\Shop\\Models\\Shop] architecto"
           }
-        headers: []
-        description: 'Zone A (madina)'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/orders/{order_id}/reviewable-items'
+    metadata:
+      custom: []
+      groupName: Avis
+      groupDescription: ''
+      subgroup: Commandes
+      subgroupDescription: ''
+      title: 'Articles livrés de la commande encore sans avis.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      order_id:
+        custom: []
+        name: order_id
+        description: 'The ID of the order.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      order_id: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
     responseFields: []
     auth:
       - headers
@@ -80,89 +128,77 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/v1/shipments/verify-pickup
+    uri: 'api/v1/orders/{order_id}/items/{orderItem_id}/reviews'
     metadata:
       custom: []
-      groupName: Livraison
+      groupName: Avis
       groupDescription: ''
-      subgroup: 'Vérification logistique'
+      subgroup: Commandes
       subgroupDescription: ''
-      title: 'Valide le retrait d’un colis par le vendeur (code sortie) pour une expédition Kilora.'
-      description: |-
-        Autorisation : vendeur propriétaire de la boutique de l’expédition, ou administrateur.
-        Appel idempotent : un second appel avec le même code valide renvoie toujours 200.
-
-        **Versements vendeurs** : si le transporteur a `payout_trigger = pickup` (Kilora Internal),
-        le versement de la boutique passe de `pending` à `ready`.
+      title: 'Crée un avis pour un article de commande livré.'
+      description: ''
       authenticated: true
       deprecated: false
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      shipment_id:
+    urlParameters:
+      order_id:
         custom: []
-        name: shipment_id
-        description: 'Identifiant de l’expédition. The <code>id</code> of an existing record in the shipments table.'
+        name: order_id
+        description: 'The ID of the order.'
         required: true
-        example: 1
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      exit_code:
+      orderItem_id:
         custom: []
-        name: exit_code
-        description: 'Code sortie (obligatoire pour Kilora, non utilisé en auto-livraison boutique). Must not be greater than 32 characters.'
+        name: orderItem_id
+        description: 'The ID of the orderItem.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      order_id: 16
+      orderItem_id: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      rating:
+        custom: []
+        name: rating
+        description: 'Note de 1 à 5 étoiles. Must be at least 1. Must not be greater than 5.'
+        required: true
+        example: 5
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      comment:
+        custom: []
+        name: comment
+        description: 'Commentaire optionnel (max. 2000 caractères). Must not be greater than 2000 characters.'
         required: false
-        example: ABC123
+        example: 'Produit conforme à la description, livraison rapide.'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      shipment_id: 1
-      exit_code: ABC123
+      rating: 5
+      comment: 'Produit conforme à la description, livraison rapide.'
     fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: |-
-          {
-            "message": "Retrait validé.",
-            "shipment": {
-              "id": 1,
-              "status": "picked_up"
-            }
-          }
-        headers: []
-        description: ''
-      -
-        custom: []
-        status: 403
-        content: ''
-        headers: []
-        description: 'Vendeur non autorisé'
-      -
-        custom: []
-        status: 422
-        content: |-
-          {
-            "message": "Le code sortie est obligatoire pour la livraison Kilora.",
-            "errors": {
-              "exit_code": ["Code sortie invalide."]
-            }
-          }
-        headers: []
-        description: 'Code sortie invalide'
+    responses: []
     responseFields: []
     auth:
       - headers
@@ -174,91 +210,113 @@ endpoints:
   -
     custom: []
     httpMethods:
-      - POST
-    uri: api/v1/shipments/verify-delivery
+      - PATCH
+    uri: 'api/v1/reviews/{id}'
     metadata:
       custom: []
-      groupName: Livraison
+      groupName: Avis
       groupDescription: ''
-      subgroup: 'Vérification logistique'
+      subgroup: Gestion
       subgroupDescription: ''
-      title: 'Valide la livraison finale au client via le code de confirmation.'
-      description: |-
-        **Kilora** : le colis doit être en statut `picked_up` avant la livraison.
-        **Auto-livraison boutique** : le pickup n’est pas requis ; seul ce endpoint libère le versement.
-
-        **Versements vendeurs** : si le transporteur a `payout_trigger = delivery` (boutique),
-        le versement passe de `pending` à `ready`. Lorsque toutes les expéditions (hors annulées)
-        sont livrées, la commande passe en statut `shipped`.
+      title: 'Met à jour un avis du client connecté.'
+      description: ''
       authenticated: true
       deprecated: false
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      shipment_id:
+    urlParameters:
+      id:
         custom: []
-        name: shipment_id
-        description: 'Identifiant de l’expédition. The <code>id</code> of an existing record in the shipments table.'
+        name: id
+        description: 'The ID of the review.'
         required: true
-        example: 1
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      confirmation_code:
+    cleanUrlParameters:
+      id: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      rating:
         custom: []
-        name: confirmation_code
-        description: 'Code de confirmation remis au client. Must not be greater than 32 characters.'
-        required: true
-        example: XYZ789
-        type: string
+        name: rating
+        description: 'Nouvelle note de 1 à 5 étoiles. Must be at least 1. Must not be greater than 5.'
+        required: false
+        example: 4
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      comment:
+        custom: []
+        name: comment
+        description: 'Commentaire mis à jour (max. 2000 caractères). Must not be greater than 2000 characters.'
+        required: false
+        example: 'Très satisfait après utilisation.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
     cleanBodyParameters:
-      shipment_id: 1
-      confirmation_code: XYZ789
+      rating: 4
+      comment: 'Très satisfait après utilisation.'
     fileParameters: []
-    responses:
-      -
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/reviews/{id}'
+    metadata:
+      custom: []
+      groupName: Avis
+      groupDescription: ''
+      subgroup: Gestion
+      subgroupDescription: ''
+      title: 'Supprime un avis du client connecté.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
         custom: []
-        status: 200
-        content: |-
-          {
-            "message": "Livraison validée.",
-            "shipment": {
-              "id": 1,
-              "status": "delivered"
-            }
-          }
-        headers: []
-        description: ''
-      -
-        custom: []
-        status: 403
-        content: ''
-        headers: []
-        description: 'Vendeur non autorisé'
-      -
-        custom: []
-        status: 422
-        content: |-
-          {
-            "message": "Le colis doit être retiré (pickup) avant la livraison finale.",
-            "errors": {
-              "shipment_id": ["Le colis doit être retiré (pickup) avant la livraison finale."]
-            }
-          }
-        headers: []
-        description: 'Pickup requis (Kilora)'
+        name: id
+        description: 'The ID of the review.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
     responseFields: []
     auth:
       - headers
