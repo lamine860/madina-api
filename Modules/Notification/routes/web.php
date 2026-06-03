@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Modules\Notification\Http\Controllers\NotificationController;
+declare(strict_types=1);
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('notifications', NotificationController::class)->names('notification');
-});
+// Routes web du module Notification (API dans routes/api.php).

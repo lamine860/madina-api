@@ -60,7 +60,10 @@
             "Modules\\Payouts\\Database\\Seeders\\": "Modules/Payouts/database/seeders/",
             "Modules\\Notification\\": "Modules/Notification/app/",
             "Modules\\Notification\\Database\\Factories\\": "Modules/Notification/database/factories/",
-            "Modules\\Notification\\Database\\Seeders\\": "Modules/Notification/database/seeders/"
+            "Modules\\Notification\\Database\\Seeders\\": "Modules/Notification/database/seeders/",
+            "Modules\\Reviews\\": "Modules/Reviews/app/",
+            "Modules\\Reviews\\Database\\Factories\\": "Modules/Reviews/database/factories/",
+            "Modules\\Reviews\\Database\\Seeders\\": "Modules/Reviews/database/seeders/"
         }
     },
     "autoload-dev": {
@@ -73,7 +76,8 @@
             "Modules\\Payments\\Tests\\": "Modules/Payments/tests/",
             "Modules\\Shipping\\Tests\\": "Modules/Shipping/tests/",
             "Modules\\Payouts\\Tests\\": "Modules/Payouts/tests/",
-            "Modules\\Notification\\Tests\\": "Modules/Notification/tests/"
+            "Modules\\Notification\\Tests\\": "Modules/Notification/tests/",
+            "Modules\\Reviews\\Tests\\": "Modules/Reviews/tests/"
         }
     },
     "scripts": {

@@ -375,7 +375,7 @@ Affiche une catégorie avec son fil d’Ariane (racine → … → catégorie co
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: May 19, 2026</li>
+        <li>Last updated: May 21, 2026</li>
     </ul>
 </div>
 
@@ -1213,7 +1213,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "description=Vente de matériel informatique et accessoires."\
     --form "company_name=Kilora SARL"\
     --form "vat_number=RC-CON-2024-B-1234"\
-    --form "logo=@/tmp/phppkv7jchssgi59IFbbMk" </code></pre></div>
+    --form "logo=@/tmp/phpsbrr4p1vla5d2AABOJP" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -1399,7 +1399,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phppkv7jchssgi59IFbbMk</code></p>
+<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpsbrr4p1vla5d2AABOJP</code></p>
         </div>
         </form>
 
@@ -1427,7 +1427,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "description=Vente de matériel informatique et accessoires."\
     --form "company_name=Kilora SARL"\
     --form "vat_number=RC-CON-2024-B-1234"\
-    --form "logo=@/tmp/php43a3epjigdh36EnDndk" </code></pre></div>
+    --form "logo=@/tmp/phpfsi2q7pn69j3ebKolPP" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -1626,7 +1626,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/php43a3epjigdh36EnDndk</code></p>
+<p>Le fichier image du logo (Max 2Mo). Must be a file. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpfsi2q7pn69j3ebKolPP</code></p>
         </div>
         </form>
 

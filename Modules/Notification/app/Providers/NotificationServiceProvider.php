@@ -6,9 +6,14 @@ namespace Modules\Notification\Providers;
 
 use InvalidArgumentException;
 use Modules\Notification\Contracts\SmsProviderInterface;
+use Modules\Notification\Observers\ShipmentSmsObserver;
+use Modules\Notification\Services\OrderSmsNotifier;
 use Modules\Notification\Services\PhoneNormalizer;
 use Modules\Notification\Services\Providers\OrangeSmsProvider;
+use Modules\Notification\Services\SellerSmsNotifier;
 use Modules\Notification\Services\SmsService;
+use Modules\Notification\Services\UserPhoneResolver;
+use Modules\Shipping\Models\Shipment;
 use Nwidart\Modules\Support\ModuleServiceProvider;
 
 class NotificationServiceProvider extends ModuleServiceProvider
@@ -20,7 +25,9 @@ class NotificationServiceProvider extends ModuleServiceProvider
     /**
      * @var string[]
      */
-    protected array $providers = [];
+    protected array $providers = [
+        EventServiceProvider::class,
+    ];
 
     public function register(): void
     {
@@ -29,6 +36,9 @@ class NotificationServiceProvider extends ModuleServiceProvider
         $this->app->singleton(PhoneNormalizer::class);
         $this->app->singleton(OrangeSmsProvider::class);
         $this->app->singleton(SmsService::class);
+        $this->app->singleton(UserPhoneResolver::class);
+        $this->app->singleton(OrderSmsNotifier::class);
+        $this->app->singleton(SellerSmsNotifier::class);
 
         $this->app->bind(SmsProviderInterface::class, function ($app): SmsProviderInterface {
             return match (config('notification.sms_provider')) {
@@ -38,5 +48,12 @@ class NotificationServiceProvider extends ModuleServiceProvider
         });
 
         parent::register();
+    }
+
+    public function boot(): void
+    {
+        parent::boot();
+
+        Shipment::observe(ShipmentSmsObserver::class);
     }
 }

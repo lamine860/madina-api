@@ -1,27 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Notification\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Modules\Notification\Listeners\SendOrderPaidSms;
+use Modules\Notification\Listeners\SendSellerOrderPaidSms;
+use Modules\Orders\Events\OrderPaid;
 
 class EventServiceProvider extends ServiceProvider
 {
     /**
-     * The event handler mappings for the application.
-     *
-     * @var array<string, array<int, string>>
+     * @var array<class-string, array<int, class-string>>
      */
-    protected $listen = [];
+    protected $listen = [
+        OrderPaid::class => [
+            SendOrderPaidSms::class,
+            SendSellerOrderPaidSms::class,
+        ],
+    ];
 
-    /**
-     * Indicates if events should be discovered.
-     *
-     * @var bool
-     */
-    protected static $shouldDiscoverEvents = true;
+    protected static $shouldDiscoverEvents = false;
 
-    /**
-     * Configure the proper event listeners for email verification.
-     */
     protected function configureEmailVerification(): void {}
 }

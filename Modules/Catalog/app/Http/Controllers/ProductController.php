@@ -13,6 +13,7 @@ use Modules\Catalog\Http\Requests\UpdateProductRequest;
 use Modules\Catalog\Http\Resources\ProductResource;
 use Modules\Catalog\Models\Product;
 use Modules\Catalog\Services\ProductService;
+use Modules\Reviews\Services\ReviewService;
 use Modules\Shop\Models\Shop;
 
 final class ProductController extends Controller
@@ -21,6 +22,7 @@ final class ProductController extends Controller
 
     public function __construct(
         private readonly ProductService $productService,
+        private readonly ReviewService $reviewService,
     ) {}
 
     /**
@@ -54,6 +56,7 @@ final class ProductController extends Controller
 
         return response()->json([
             'product' => new ProductResource($product),
+            'review_summary' => $this->reviewService->summaryForProduct($product),
         ]);
     }
 

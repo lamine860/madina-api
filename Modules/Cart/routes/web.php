@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Modules\Cart\Http\Controllers\CartController;
+declare(strict_types=1);
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('carts', CartController::class)->names('cart');
-});
+// Routes web du module Cart (API dans routes/api.php).

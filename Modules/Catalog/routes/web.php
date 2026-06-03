@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Modules\Catalog\Http\Controllers\CatalogController;
+declare(strict_types=1);
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('catalogs', CatalogController::class)->names('catalog');
-});
+// Routes web du module Catalog (API dans routes/api.php).

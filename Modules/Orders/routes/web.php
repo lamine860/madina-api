@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Modules\Orders\Http\Controllers\OrdersController;
+declare(strict_types=1);
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('orders', OrdersController::class)->names('orders');
-});
+// Routes web du module Orders (API dans routes/api.php).
